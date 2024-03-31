@@ -26,7 +26,6 @@ u32 GetHailDamage(u8 bank);
 void TransformPokemon(u8 bankAtk, u8 bankDef);
 u8 CastformDataTypeChange(u8 bank);
 bool8 CanSwapItems(u8 bankAtk, u8 bankDef);
-u8 GetSecretPowerEffect(void);
 u16 GetNaturePowerMove(void);
 void RecycleItem(u8 bank);
 u8 GetCamouflageType(void);

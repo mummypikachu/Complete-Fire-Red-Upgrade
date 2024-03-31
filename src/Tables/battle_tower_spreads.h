@@ -15720,7 +15720,7 @@ const struct BattleTowerSpread gFrontierSpreads[] =
 		.defEv = 252,
 		.spAtkEv = 252,
 		.spDefEv = 4,
-		.ability = FRONTIER_ABILITY_2, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_2, //ABILITY_OWNTEMPO
 		.item = ITEM_QUICK_CLAW,
 		.moves =
 		{
@@ -16345,7 +16345,7 @@ const struct BattleTowerSpread gFrontierSpreads[] =
 		.hpEv = 252,
 		.defEv = 252,
 		.spDefEv = 4,
-		.ability = FRONTIER_ABILITY_1, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_1, //ABILITY_OWNTEMPO
 		.item = ITEM_DAMP_ROCK,
 		.moves =
 		{
@@ -25089,7 +25089,7 @@ const struct BattleTowerSpread gFrontierSpreads[] =
 		.hpEv = 252,
 		.defEv = 252,
 		.spDefEv = 4,
-		.ability = FRONTIER_ABILITY_2, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_2, //ABILITY_OWNTEMPO
 		.item = ITEM_LEFTOVERS,
 		.moves =
 		{
@@ -40915,7 +40915,7 @@ const struct BattleTowerSpread gFrontierSpreads[] =
 		.defEv = 4,
 		.spAtkEv = 252,
 		.spdEv = 252,
-		.ability = FRONTIER_ABILITY_HIDDEN, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_HIDDEN, //ABILITY_OWNTEMPO
 		.item = ITEM_LIFE_ORB,
 		.moves =
 		{
@@ -61287,7 +61287,7 @@ const struct BattleTowerSpread gMiddleCupSpreads[] =
 		.hpEv = 4,
 		.atkEv = 252,
 		.spdEv = 252,
-		.ability = FRONTIER_ABILITY_1, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_1, //ABILITY_OWNTEMPO
 		.item = ITEM_CHOICE_SCARF,
 		.moves =
 		{
@@ -64543,7 +64543,7 @@ const struct BattleTowerSpread gMiddleCupSpreads[] =
 		.hpEv = 252,
 		.defEv = 4,
 		.spDefEv = 252,
-		.ability = FRONTIER_ABILITY_2, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_2, //ABILITY_OWNTEMPO
 		.item = ITEM_LEFTOVERS,
 		.moves =
 		{
@@ -64569,7 +64569,7 @@ const struct BattleTowerSpread gMiddleCupSpreads[] =
 		.hpEv = 252,
 		.atkEv = 4,
 		.spdEv = 252,
-		.ability = FRONTIER_ABILITY_2, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_2, //ABILITY_OWNTEMPO
 		.item = ITEM_LIGHT_CLAY,
 		.moves =
 		{
@@ -66211,7 +66211,7 @@ const struct BattleTowerSpread gLittleCupSpreads[] =
 		.atkEv = 196,
 		.spDefEv = 132,
 		.spdEv = 160,
-		.ability = FRONTIER_ABILITY_2, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_2, //ABILITY_OWNTEMPO
 		.item = ITEM_EVIOLITE,
 		.moves =
 		{
@@ -71966,7 +71966,7 @@ const struct BattleTowerSpread gLittleCupSpreads[] =
 		.hpEv = 196,
 		.defEv = 76,
 		.spDefEv = 236,
-		.ability = FRONTIER_ABILITY_2, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_2, //ABILITY_OWNTEMPO
 		.item = ITEM_EVIOLITE,
 		.moves =
 		{
@@ -73932,7 +73932,7 @@ const struct BattleTowerSpread gLittleCupSpreads[] =
 		.spAtkEv = 236,
 		.spDefEv = 156,
 		.spdEv = 44,
-		.ability = FRONTIER_ABILITY_1, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_1, //ABILITY_OWNTEMPO
 		.item = ITEM_EVIOLITE,
 		.moves =
 		{
@@ -76198,7 +76198,7 @@ const struct BattleTowerSpread gLittleCupSpreads[] =
 		.spAtkEv = 192,
 		.spDefEv = 60,
 		.spdEv = 220,
-		.ability = FRONTIER_ABILITY_HIDDEN, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_HIDDEN, //ABILITY_OWNTEMPO
 		.item = ITEM_LIFE_ORB,
 		.moves =
 		{
@@ -77732,7 +77732,7 @@ const struct BattleTowerSpread gLittleCupSpreads[] =
 		.defEv = 36,
 		.spAtkEv = 236,
 		.spdEv = 236,
-		.ability = FRONTIER_ABILITY_1, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_1, //ABILITY_OWNTEMPO
 		.item = ITEM_LIFE_ORB,
 		.moves =
 		{
@@ -78144,7 +78144,7 @@ const struct BattleTowerSpread gLittleCupSpreads[] =
 		.defEv = 196,
 		.spAtkEv = 80,
 		.spDefEv = 196,
-		.ability = FRONTIER_ABILITY_HIDDEN, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_HIDDEN, //ABILITY_OWNTEMPO
 		.item = ITEM_LEFTOVERS,
 		.moves =
 		{
@@ -78879,7 +78879,7 @@ const struct BattleTowerSpread gLittleCupSpreads[] =
 		.defEv = 36,
 		.spDefEv = 36,
 		.spdEv = 200,
-		.ability = FRONTIER_ABILITY_1, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_1, //ABILITY_OWNTEMPO
 		.item = ITEM_BERRY_JUICE,
 		.moves =
 		{
@@ -80196,7 +80196,7 @@ const struct BattleTowerSpread gLittleCupSpreads[] =
 		.atkEv = 116,
 		.spAtkEv = 196,
 		.spdEv = 196,
-		.ability = FRONTIER_ABILITY_2, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_2, //ABILITY_OWNTEMPO
 		.item = ITEM_CHOICE_SCARF,
 		.moves =
 		{

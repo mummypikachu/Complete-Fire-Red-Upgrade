@@ -1304,7 +1304,7 @@ CaptivateBS:
 	accuracycheck BS_MOVE_MISSED 0x0
 	attackstring
 	ppreduce
-	jumpifability BANK_TARGET ABILITY_OBLIVIOUS BattleScript_ObliviousPrevents
+	jumpifability BANK_TARGET ABILITY_OWNTEMPO BattleScript_ObliviousPrevents
 	callasm CaptivateFunc
 	goto 0x81D6C27
 
@@ -2456,7 +2456,7 @@ BS_120_Attract:
 	accuracycheck FAILED_PRE 0x0
 	attackstring
 	ppreduce
-	jumpifability BANK_TARGET ABILITY_OBLIVIOUS BattleScript_ObliviousPrevents
+	jumpifability BANK_TARGET ABILITY_OWNTEMPO BattleScript_ObliviousPrevents
 	jumpifabilitypresenttargetfield ABILITY_AROMAVEIL BattleScript_ProtectedByAromaVeil
 	tryinfatuatebank BANK_TARGET NOEFFECT
 	attackanimation
@@ -2464,7 +2464,7 @@ BS_120_Attract:
 	printstring 0x45
 	waitmessage DELAY_1SECOND
 	jumpifsecondarystatus BANK_ATTACKER STATUS2_INLOVE BS_MOVE_END
-	jumpifability BANK_ATTACKER ABILITY_OBLIVIOUS BS_MOVE_END
+	jumpifability BANK_ATTACKER ABILITY_OWNTEMPO BS_MOVE_END
 	jumpifabilitypresentattackerfield ABILITY_AROMAVEIL BS_MOVE_END
 	jumpifhelditemeffect BANK_TARGET ITEM_EFFECT_DESTINY_KNOT AttractDestinyKnot
 	goto BS_MOVE_END
@@ -3614,7 +3614,7 @@ BS_175_Taunt:
 	accuracycheck FAILED_PRE 0x0
 	attackstringnoprotean
 	ppreduce
-	jumpifability BANK_TARGET ABILITY_OBLIVIOUS BattleScript_ObliviousPrevents
+	jumpifability BANK_TARGET ABILITY_OWNTEMPO BattleScript_ObliviousPrevents
 	jumpifabilitypresenttargetfield ABILITY_AROMAVEIL BattleScript_ProtectedByAromaVeil
 	settaunt FAILED
 	tryactivateprotean

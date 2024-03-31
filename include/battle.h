@@ -330,6 +330,7 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_MIRROR_MOVE_AFFECTED   0x10
 #define FLAG_KINGS_ROCK_AFFECTED    0x20
 #define FLAG_TRIAGE_AFFECTED     	0x40
+#define FLAG_SHARPNESS_AFFECTED 0x50
 
 #define SPLIT_PHYSICAL 0
 #define SPLIT_SPECIAL 1
@@ -457,6 +458,7 @@ struct SideTimer
 			 u8 tspikesAmount : 2;
 			 u8 srAmount : 1;
 			 u8 stickyWeb : 1;
+			 u8 glacierstream: 1;
 			 u8 steelsurge: 1;
 	/*0x0B*/ u8 stickyWebBank;
 };

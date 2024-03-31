@@ -11,7 +11,7 @@ The effects of weather\ndisappeared.
 [SCRIPTING_BANK] is radiating\na bursting aura!
 
 #org @gText_TurboblazeActivate
-[SCRIPTING_BANK] is radiating\na blazing aura!
+The power of Sun makes\n[TARGET]'s power explode!
 
 #org @gText_SlowStartActivate
 [SCRIPTING_BANK] couldn't get\ngoing!
@@ -126,3 +126,6 @@ But [TARGET] evaporated\nthe attack!
 
 #org @gText_ButAbilityEvaporatesRain
 But [SCRIPTING_BANK] evaporates\nrain!
+
+#org @gText_AmpdriveActive
+The power of Electric Terrain makes\n[TARGET]'s power explode!

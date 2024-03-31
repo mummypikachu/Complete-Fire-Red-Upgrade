@@ -146,6 +146,7 @@ const s8 gAbilityRatings[ABILITIES_COUNT] =
 	[ABILITY_IRONBARBS] = 6,
 	#endif
 	[ABILITY_IRONFIST] = 6,
+	[ABILITY_SHARPNESS] = 6,
 	[ABILITY_JUSTIFIED] = 4,
 	[ABILITY_KEENEYE] = 1,
 	[ABILITY_KLUTZ] = -1,
@@ -184,7 +185,7 @@ const s8 gAbilityRatings[ABILITIES_COUNT] =
 	[ABILITY_NEUROFORCE] = 6,
 	[ABILITY_NOGUARD] = 8,
 	[ABILITY_NORMALIZE] = -1,
-	[ABILITY_OBLIVIOUS] = 2,
+	//[ABILITY_OWNTEMPO] = 2,
 	[ABILITY_OVERCOAT] = 5,
 	[ABILITY_OVERGROW] = 5,
 	[ABILITY_OWNTEMPO] = 3,
@@ -220,7 +221,7 @@ const s8 gAbilityRatings[ABILITIES_COUNT] =
 	[ABILITY_RECKLESS] = 6,
 	[ABILITY_REFRIGERATE] = 8,
 	[ABILITY_REGENERATOR] = 8,
-	[ABILITY_RIVALRY] = 1,
+	//[ABILITY_RIVALRY] = 1,
 	[ABILITY_RKS_SYSTEM] = 8,
 	[ABILITY_ROCKHEAD] = 5,
 	[ABILITY_ROUGHSKIN] = 6,
@@ -322,7 +323,7 @@ const s8 gAbilityRatings[ABILITIES_COUNT] =
 	[ABILITY_INTREPIDSWORD] = 3,
 	[ABILITY_DAUNTLESSSHIELD] = 3,
 	[ABILITY_BALLFETCH] = 0,
-	[ABILITY_COTTONDOWN] = 3,
+	//[ABILITY_COTTONDOWN] = 3,
 	[ABILITY_MIRRORARMOR] = 6,
 	[ABILITY_GULPMISSILE] = 3,
 	[ABILITY_STALWART] = 2,
@@ -522,6 +523,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u8 ability, u8 special, u16 moveArg)
 						effect++;
 					}
 					break;
+				
 
 			#ifdef HAIL_IN_BATTLE
 				case WEATHER_STEADY_SNOW:
@@ -629,6 +631,18 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u8 ability, u8 special, u16 moveArg)
 			break;
 
 		case ABILITY_DROUGHT:
+			if (!(gBattleWeather & (WEATHER_SUN_ANY | WEATHER_PRIMAL_ANY | WEATHER_CIRCUS)))
+			{
+				effect = ActivateWeatherAbility(WEATHER_SUN_PERMANENT | WEATHER_SUN_TEMPORARY,
+												ITEM_EFFECT_HEAT_ROCK, bank, B_ANIM_SUN_CONTINUES, 2, FALSE);
+			}
+			else if (gBattleWeather & WEATHER_PRIMAL_ANY && !(gBattleWeather & WEATHER_SUN_ANY))
+			{
+				BattleScriptPushCursorAndCallback(BattleScript_WeatherAbilityBlockedByPrimalWeather);
+				effect++;
+			}
+			break;
+		case ABILITY_TURBOBLAZE:
 			if (!(gBattleWeather & (WEATHER_SUN_ANY | WEATHER_PRIMAL_ANY | WEATHER_CIRCUS)))
 			{
 				effect = ActivateWeatherAbility(WEATHER_SUN_PERMANENT | WEATHER_SUN_TEMPORARY,
@@ -789,40 +803,14 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u8 ability, u8 special, u16 moveArg)
 			break;
 
 		case ABILITY_MOLDBREAKER:
-			#ifndef ABILITY_TURBOBLAZE
-			if (SpeciesHasTurboblaze(SPECIES(bank)))
-				gBattleStringLoader = gText_TurboblazeActivate;
-			else
-			#endif
-			#ifndef ABILITY_TERAVOLT
-			if (SpeciesHasTeravolt(SPECIES(bank)))
-				gBattleStringLoader = gText_TeravoltActivate;
-			else
-			#endif
 				gBattleStringLoader = gText_MoldBreakerActivate;
 
 			BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
 			effect++;
 			break;
 
-		#ifdef ABILITY_TURBOBLAZE
-		case ABILITY_TURBOBLAZE:
-			gBattleStringLoader = gText_TurboblazeActivate;
-			BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
-			effect++;
-			break;
-		#endif
-
-		#ifdef ABILITY_TERAVOLT
-		case ABILITY_TERAVOLT:
-			gBattleStringLoader = gText_TeravoltActivate;
-			BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
-			effect++;
-			break;
-		#endif
-
 		case ABILITY_SLOWSTART:
-			gNewBS->SlowStartTimers[bank] = 5;
+			gNewBS->SlowStartTimers[bank] = 3;
 			gBattleStringLoader = gText_SlowStartActivate;
 			BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
 			effect++;
@@ -888,6 +876,17 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u8 ability, u8 special, u16 moveArg)
 						++effect;
 						break;
 					}
+
+					moveType = gBattleMoves[move].type;
+					if (move == MOVE_SECRETPOWER)
+						moveType = GetExceptionMoveType(FOE(bank), move);
+
+					if (MOVE_RESULT_SUPER_EFFECTIVE &
+						TypeCalc(move, FOE(bank), bank, NULL))
+					{
+						++effect;
+						break;
+					}
 				}
 
 				if (IS_DOUBLE_BATTLE
@@ -903,6 +902,17 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u8 ability, u8 special, u16 moveArg)
 
 					moveType = gBattleMoves[move].type;
 					if (move == MOVE_HIDDENPOWER)
+						moveType = GetExceptionMoveType(PARTNER(FOE(bank)), move);
+
+					if (MOVE_RESULT_SUPER_EFFECTIVE &
+						TypeCalc(move, PARTNER(FOE(bank)), bank, NULL))
+					{
+						++effect;
+						break;
+					}
+
+					moveType = gBattleMoves[move].type;
+					if (move == MOVE_SECRETPOWER)
 						moveType = GetExceptionMoveType(PARTNER(FOE(bank)), move);
 
 					if (MOVE_RESULT_SUPER_EFFECTIVE &
@@ -1214,6 +1224,12 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u8 ability, u8 special, u16 moveArg)
 			break;
 	
 		case ABILITY_ELECTRICSURGE:
+			effect = TryActivateTerrainAbility(ELECTRIC_TERRAIN, B_ANIM_ELECTRIC_SURGE, bank);
+			break;
+
+		case ABILITY_AMPDRIVE:
+		    gBattleStringLoader = gText_AmpdriveActive;
+			BattleScriptPushCursorAndCallback(BattleScript_AmpdriveActive);
 			effect = TryActivateTerrainAbility(ELECTRIC_TERRAIN, B_ANIM_ELECTRIC_SURGE, bank);
 			break;
 
@@ -1928,7 +1944,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u8 ability, u8 special, u16 moveArg)
 				&& gBankAttacker != bank
 				&& CheckContact(move, gBankAttacker, bank)
 				&& umodsi(Random(), 3) == 0
-				&& ABILITY(gBankAttacker) != ABILITY_OBLIVIOUS
+				&& ABILITY(gBankAttacker) != ABILITY_OWNTEMPO
 				&& ABILITY(gBankAttacker) != ABILITY_AROMAVEIL
 				&& !(IS_DOUBLE_BATTLE && ABILITY(PARTNER(gBankAttacker)) == ABILITY_AROMAVEIL)
 				&& GetGenderFromSpeciesAndPersonality(speciesAtk, pidAtk) != GetGenderFromSpeciesAndPersonality(speciesDef, pidDef)
@@ -2189,7 +2205,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u8 ability, u8 special, u16 moveArg)
 				}
 				break;
 
-			case ABILITY_COTTONDOWN:
+			//case ABILITY_COTTONDOWN:
 				if (MOVE_HAD_EFFECT
 				&& TOOK_DAMAGE(bank)
 				&& gBankAttacker != bank
@@ -2278,13 +2294,6 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u8 ability, u8 special, u16 moveArg)
 						effect = 1;
 					}
 					break;
-				case ABILITY_OWNTEMPO:
-					if (gBattleMons[bank].status2 & STATUS2_CONFUSION)
-					{
-						StringCopy(gBattleTextBuff1, gStatusConditionString_Confusion);
-						effect = 2;
-					}
-					break;
 				case ABILITY_LIMBER:
 					if (gBattleMons[bank].status1 & STATUS1_PARALYSIS)
 					{
@@ -2317,7 +2326,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u8 ability, u8 special, u16 moveArg)
 						effect = 1;
 					}
 					break;
-				case ABILITY_OBLIVIOUS:
+				case ABILITY_OWNTEMPO:
 					if (gBattleMons[bank].status2 & STATUS2_INFATUATION)
 					{
 						if (gDisableStructs[bank].tauntTimer)
@@ -2528,6 +2537,7 @@ static u8 CalcMovePowerForForewarn(u16 move)
 			case MOVE_HEATCRASH:
 			case MOVE_HEAVYSLAM:
 			case MOVE_HIDDENPOWER:
+			case MOVE_SECRETPOWER:
 			case MOVE_LOWKICK:
 			case MOVE_NATURALGIFT:
 			case MOVE_NIGHTSHADE:

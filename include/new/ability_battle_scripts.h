@@ -72,6 +72,7 @@ extern const u8 BattleScript_CastformChange[];
 extern const u8 BattleScript_CottonDownActivates[];
 extern const u8 BattleScript_PerishBody[];
 extern const u8 BattleScript_PerishBodyReturn[];
+extern const u8 BattleScript_AmpdriveActive[];
 
 extern const u8 BattleScript_AbilityChangedType[];
 extern const u8 BattleScript_DisguiseTookDamage[];
@@ -132,6 +133,7 @@ extern const u8 gText_FairyAuraActivate[];
 extern const u8 gText_AuraBreakActivate[];
 extern const u8 gText_ComatoseActivate[];
 extern const u8 gText_AnticipationActivate[];
+extern const u8 gText_AmpdriveActive[];
 extern const u8 gText_ForewarnActivate[];
 extern const u8 gText_FriskActivate[];
 extern const u8 gText_ScreenCleanerActivate[];

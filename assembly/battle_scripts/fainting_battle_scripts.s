@@ -47,6 +47,7 @@ BattleScript_FaintTarget:
 	dofaintanimation BANK_TARGET
 	printstring 0x1D @;STRINGID_TARGETFAINTED
 	cleareffectsonfaint BANK_TARGET
+	callasm ClearPlayerRechargeMultipleTurns @;So the game doesn't lock
 	printstring 0x130
 	trytrainerslidefirstdownmsg BANK_TARGET
 	return

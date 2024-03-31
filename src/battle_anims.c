@@ -359,34 +359,6 @@ const union AnimCmd *const gAnimCmdTable_SmallRock[] =
 };
 
 
-//Secret Power//
-void AnimTask_GetSecretPowerAnimation(u8 taskId)
-{
-	u16 move;
-
-	switch (gTerrainType) {
-		case ELECTRIC_TERRAIN:
-			move = gTerrainTable[0].secretPowerAnim;
-			break;
-		case GRASSY_TERRAIN:
-			move = gTerrainTable[1].secretPowerAnim;
-			break;
-		case MISTY_TERRAIN:
-			move = gTerrainTable[2].secretPowerAnim;
-			break;
-		case PSYCHIC_TERRAIN:
-			move = gTerrainTable[3].secretPowerAnim;
-			break;
-		default:
-			if (IsTerrainMoveIndoors())
-				move = gTerrainTable[BATTLE_TERRAIN_INSIDE + 4].secretPowerAnim;
-			else
-				move = gTerrainTable[GetBattleTerrainOverride() + 4].secretPowerAnim;
-	}
-
-	sBattleAnimScriptPtr = gMoveAnimations[move];
-	DestroyAnimVisualTask(taskId);
-}
 
 
 //Skill Swap//

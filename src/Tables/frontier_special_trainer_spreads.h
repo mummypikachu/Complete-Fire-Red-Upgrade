@@ -19189,7 +19189,7 @@ const struct BattleTowerSpread gSpecialTowerSpread_Candice[] =
 		.atkEv = 252,
 		.spDefEv = 4,
 		.spdEv = 172,
-		.ability = FRONTIER_ABILITY_1, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_1, //ABILITY_OWNTEMPO
 		.item = ITEM_SALAC_BERRY,
 		.moves =
 		{
@@ -20210,7 +20210,7 @@ const struct BattleTowerSpread gLittleCupTowerSpread_Candice[] =
 		.spdIv = 0,
 		.hpEv = 252,
 		.spDefEv = 252,
-		.ability = FRONTIER_ABILITY_1, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_1, //ABILITY_OWNTEMPO
 		.item = ITEM_ENIGMA_BERRY,
 		.moves =
 		{

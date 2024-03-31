@@ -409,7 +409,7 @@ bool8 IsDamageHalvedDueToFullHP(u8 bank, u8 defAbility, u16 move, u8 atkAbility)
 	if (BATTLER_MAX_HP(bank))
 	{
 		if (IsMultiscaleAbility(defAbility))
-			return NO_MOLD_BREAKERS(atkAbility, move) || !gSpecialAbilityFlags[defAbility].gMoldBreakerIgnoredAbilities;
+			return IS_MOLD_BREAKER(atkAbility, move) || !gSpecialAbilityFlags[defAbility].gMoldBreakerIgnoredAbilities;
 
 		return IsAffectedByShadowShieldBattle(bank);
 	}
@@ -422,7 +422,7 @@ bool8 IsMonDamageHalvedDueToFullHP(struct Pokemon* mon, u8 defAbility, u16 move,
 	if (mon->hp == mon->maxHP)
 	{
 		if (IsMultiscaleAbility(defAbility))
-			return NO_MOLD_BREAKERS(atkAbility, move) || !gSpecialAbilityFlags[defAbility].gMoldBreakerIgnoredAbilities;
+			return IS_MOLD_BREAKER(atkAbility, move) || !gSpecialAbilityFlags[defAbility].gMoldBreakerIgnoredAbilities;
 
 		return IsMonAffectedByShadowShieldBattle(mon);
 	}
@@ -766,6 +766,8 @@ bool8 IsUnusableMove(u16 move, u8 bank, u8 check, u8 pp, u8 ability, u8 holdEffe
 	}
 	else if (holdEffect == ITEM_EFFECT_ASSAULT_VEST && IsMoveBannedByAssaultVest(move) && check & MOVE_LIMITATION_TAUNT)
 		return TRUE;
+	else if (holdEffect == ITEM_EFFECT_STRIKER_VEST && SPLIT(move) == SPLIT_STATUS)
+		return TRUE;
 	#ifdef FLAG_SKY_BATTLE
 	else if (gSpecialMoveFlags[move].gSkyBattleBannedMoves && FlagGet(FLAG_SKY_BATTLE) && check & MOVE_LIMITATION_ENCORE)
 		return TRUE;
@@ -797,6 +799,8 @@ u8 CheckMoveLimitationsFromParty(struct Pokemon* mon, u8 unusableMoves, u8 check
 		else if (GetMonData(mon, MON_DATA_PP1 + i, NULL) == 0 && check & MOVE_LIMITATION_PP)
 			unusableMoves |= gBitTable[i];
 		else if (holdEffect == ITEM_EFFECT_ASSAULT_VEST && IsMoveBannedByAssaultVest(move))
+			unusableMoves |= gBitTable[i];
+		else if (holdEffect == ITEM_EFFECT_STRIKER_VEST && SPLIT(move) == SPLIT_STATUS)
 			unusableMoves |= gBitTable[i];
 		#ifdef FLAG_SKY_BATTLE
 		else if (check & MOVE_LIMITATION_ENCORE && FlagGet(FLAG_SKY_BATTLE) && gSpecialMoveFlags[move].gSkyBattleBannedMoves)
@@ -897,7 +901,7 @@ u8 GetMoveTarget(u16 move, u8 useMoveTarget)
 				} while (bankDef == bankAtk || atkSide == SIDE(bankDef) || gAbsentBattlerFlags & gBitTable[bankDef]);
 			}
 
-			if (NO_MOLD_BREAKERS(atkAbility, move) && !IsMoveRedirectionPrevented(move, atkAbility))
+			if (IS_MOLD_BREAKER(atkAbility, move) && !IsMoveRedirectionPrevented(move, atkAbility))
 			{
 				u8 moveType = GetMoveTypeSpecial(bankAtk, move);
 				switch (moveType) {
@@ -2395,7 +2399,7 @@ bool8 CanBeInfatuated(u8 bankDef, u8 bankAtk)
 
 	return BATTLER_ALIVE(bankDef)
 		&& !(gBattleMons[bankDef].status2 & STATUS2_INFATUATION)
-		&& (ABILITY(bankDef) != ABILITY_OBLIVIOUS || IsTargetAbilityIgnoredNoMove(ABILITY_OBLIVIOUS, ABILITY(bankAtk)))
+		&& (ABILITY(bankDef) != ABILITY_OWNTEMPO || IsTargetAbilityIgnoredNoMove(ABILITY_OWNTEMPO, ABILITY(bankAtk)))
 		&& GetGenderFromSpeciesAndPersonality(speciesAttacker, personalityAttacker) != GetGenderFromSpeciesAndPersonality(speciesTarget, personalityTarget)
 		&& GetGenderFromSpeciesAndPersonality(speciesAttacker, personalityAttacker) != MON_GENDERLESS
 		&& GetGenderFromSpeciesAndPersonality(speciesTarget, personalityTarget) != MON_GENDERLESS
@@ -2624,7 +2628,7 @@ bool8 IsConfused(u8 bank)
 bool8 IsTaunted(u8 bank)
 {
 	return gDisableStructs[bank].tauntTimer > 0
-		|| (IS_BATTLE_CIRCUS && gBattleCircusFlags & BATTLE_CIRCUS_TAUNT && ABILITY(bank) != ABILITY_OBLIVIOUS);
+		|| (IS_BATTLE_CIRCUS && gBattleCircusFlags & BATTLE_CIRCUS_TAUNT && ABILITY(bank) != ABILITY_OWNTEMPO);
 }
 
 bool8 IsTormented(u8 bank)

@@ -1520,7 +1520,7 @@ void HandleAction_UseMove(void)
 		  && !IsMoveRedirectionPrevented(gCurrentMove, atkAbility)
 		  && (SPLIT(gCurrentMove) != SPLIT_STATUS || moveTarget != MOVE_TARGET_USER)
 		  && !(moveTarget & (MOVE_TARGET_ALL | MOVE_TARGET_BOTH))
-		  && NO_MOLD_BREAKERS(ABILITY(gBankAttacker), gCurrentMove))
+		  && IS_MOLD_BREAKER(ABILITY(gBankAttacker), gCurrentMove))
 	{ //Try Ability Redirection
 		switch (moveType) {
 			case TYPE_WATER:
@@ -2294,6 +2294,9 @@ u32 SpeedCalc(u8 bank)
 	speed = BoostSpeedInWeather(ability, itemEffect, speed);
 
 	switch (ability) {
+		case ABILITY_RUNAWAY:
+				speed *= 2;
+			break;
 		case ABILITY_UNBURDEN:
 			if (gNewBS->UnburdenBoosts & gBitTable[bank] && ITEM(bank) == ITEM_NONE)
 				speed *= 2;

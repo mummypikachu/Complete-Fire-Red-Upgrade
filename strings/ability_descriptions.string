@@ -151,7 +151,7 @@ Spreads with contact.
 Hurts to touch.
 
 #org @DESC_SANDRUSH
-Raises Speed in a sandstorm.
+Doubles Speed in a sandstorm.
 
 #org @DESC_ANALYTIC
 Moving last boosts power.
@@ -160,7 +160,7 @@ Moving last boosts power.
 Ensures that all moves land.
 
 #org @DESC_MEGALAUNCHER
-Boosts aura and pulse moves.
+Boosts aura, pulse and bomb moves.
 
 #org @DESC_TOUGHCLAWS
 Boosts moves that make contact.
@@ -236,7 +236,6 @@ Changes type to match move.
 Moves get a weaker second hit.
 
 #org @DESC_MOLDBREAKER
-#org @DESC_TURBOBLAZE
 #org @DESC_TERAVOLT
 Moves ignore Abilities.
 
@@ -485,8 +484,11 @@ Ups Defense on entry.
 #org @DESC_BALLFETCH
 Fetches first failed Pok\e Ball.
 
-#org @DESC_COTTONDOWN
-Lowers everyone's Speed when hit.
+#org @DESC_TURBOBLAZE
+Creats and Ups Sp.Atk in Sun.
+
+#org @DESC_AMPDRIVE
+Creates and Ups Attack in Electric Terrain.
 
 #org @DESC_MIRRORARMOR
 Bounces back stat decreases.
@@ -569,6 +571,9 @@ Sometimes moves quicker.
 
 #org @DESC_CURIOUSMEDICINE
 Resets ally's stat changes.
+
+#org @DESC_BLAZINGRUSH
+Doubles Speed in a sun.
 
 //Unbound Custom Abilities//
 

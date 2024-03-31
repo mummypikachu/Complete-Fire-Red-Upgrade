@@ -547,3 +547,49 @@ bool8 CanPartyMonBeFrozen(struct Pokemon* mon)
 
 	return TRUE;
 }
+
+const u8 LevelCaps[] = 
+{
+    18, //Cap Before Badge 1
+    27, //Cap Before Badge 2
+    37, //Cap Before Badge 3
+    45, //Cap Before Badge 4
+    58, //Cap Before Badge 5
+    61, //Cap Before Badge 6
+    68, //Cap Before Badge 7
+    75, //Cap Before Badge 8
+    92, //Cap Before E4
+    100 //Cap After Game Clear
+};
+
+u8 GetCap() {
+    u8 cap = 0;
+    if (FlagGet(FLAG_BADGE01_GET)) {
+        cap++;
+    }
+    if (FlagGet(FLAG_BADGE02_GET)) {
+        cap++;
+    }
+    if (FlagGet(FLAG_BADGE03_GET)) {
+        cap++;
+    }
+    if (FlagGet(FLAG_BADGE04_GET)) {
+        cap++;
+    }
+    if (FlagGet(FLAG_BADGE05_GET)) {
+        cap++;
+    }
+    if (FlagGet(FLAG_BADGE06_GET)) {
+        cap++;
+    }
+    if (FlagGet(FLAG_BADGE07_GET)) {
+        cap++;
+    }
+    if (FlagGet(FLAG_BADGE08_GET)) {
+        cap++;
+    }
+    if (FlagGet(FLAG_SYS_GAME_CLEAR)){ // Defeated Champion Flag
+        cap++;
+    }
+    return LevelCaps[cap];
+};

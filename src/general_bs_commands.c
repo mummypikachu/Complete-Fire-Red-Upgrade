@@ -91,6 +91,7 @@ static const u8* const sEntryHazardsStrings[] =
 	ToxicSpikesLayString,
 	StickyWebLayString,
 	gText_SteelsurgeLay,
+	GlacierStreamString,
 };
 
 
@@ -3210,7 +3211,7 @@ bool8 SandstormHurts(u8 bank)
 	if (TakesGeneralWeatherDamage(bank))
 	{
 		if (!IsOfType(bank, TYPE_ROCK) && !IsOfType(bank, TYPE_GROUND) && !IsOfType(bank, TYPE_STEEL)
-		&& ability != ABILITY_SANDVEIL && ability != ABILITY_SANDRUSH && ability != ABILITY_SANDFORCE)
+		&& ability != ABILITY_SANDVEIL && ability != ABILITY_SANDRUSH && ability != ABILITY_SANDFORCE && ability != ABILITY_SANDSTREAM  && ability != ABILITY_SANDSPIT)
 			return TRUE;
 	}
 
@@ -3330,7 +3331,7 @@ void atk97_tryinfatuating(void)
 		bankDef = gBankAttacker;
 	}
 
-	if (ABILITY(bankDef) == ABILITY_OBLIVIOUS)
+	if (ABILITY(bankDef) == ABILITY_OWNTEMPO)
 	{
 		gBattlescriptCurrInstr = BattleScript_ObliviousPrevents;
 	}
@@ -4086,6 +4087,7 @@ void atkB0_trysetspikes(void)
 
 	switch (gCurrentMove) {
 		case MOVE_STEALTHROCK:
+		case MOVE_STONEAXE:
 		case MOVE_G_MAX_STONESURGE_P:
 		case MOVE_G_MAX_STONESURGE_S:
 			if (gSideTimers[defSide].srAmount)
@@ -4101,6 +4103,22 @@ void atkB0_trysetspikes(void)
 				stringcase = 1;
 			}
 			break;
+
+		case MOVE_GLACIERSTREAM:
+			if (gSideTimers[defSide].glacierstream)
+			{
+				gSpecialStatuses[gBankAttacker].ppNotAffectedByPressure = 1;
+				gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+			}
+			else
+			{
+				gSideStatuses[defSide] |= SIDE_STATUS_SPIKES;
+				gSideTimers[defSide].srAmount = 1;
+				gBattlescriptCurrInstr += 5;
+				stringcase = 1;
+			}
+			break;
+	
 
 		case MOVE_TOXICSPIKES:
 			if (gSideTimers[defSide].tspikesAmount >= 2)
@@ -5245,42 +5263,6 @@ void atkE1_trygetintimidatetarget(void)
 		gBattlescriptCurrInstr += 5;
 }
 
-u8 GetSecretPowerEffect(void)
-{
-	u8 effect;
-
-	switch (gTerrainType) {
-		case ELECTRIC_TERRAIN:
-			effect = gTerrainTable[0].secretPowerEffect;
-			break;
-
-		case GRASSY_TERRAIN:
-			effect = gTerrainTable[1].secretPowerEffect;
-			break;
-
-		case MISTY_TERRAIN:
-			effect = gTerrainTable[2].secretPowerEffect;
-			break;
-
-		case PSYCHIC_TERRAIN:
-			effect = gTerrainTable[3].secretPowerEffect;
-			break;
-
-		default:
-			if (IsTerrainMoveIndoors())
-				effect = gTerrainTable[BATTLE_TERRAIN_INSIDE + 4].secretPowerEffect;
-			else
-				effect = gTerrainTable[GetBattleTerrainOverride() + 4].secretPowerEffect;
-	}
-
-	return effect;
-}
-
-void atkE4_getsecretpowereffect(void)
-{
-	gBattleCommunication[MOVE_EFFECT_BYTE] = GetSecretPowerEffect();
-	gBattlescriptCurrInstr++;
-}
 
 void atkE5_pickupitemcalculation(void)
 {

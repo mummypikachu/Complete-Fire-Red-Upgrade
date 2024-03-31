@@ -1205,7 +1205,7 @@ bool8 MoveKnocksOutXHits(u16 move, u8 bankAtk, u8 bankDef, u8 numHits)
 	u8 ability = ABILITY(bankDef);
 
 	if (MoveBlockedBySubstitute(move, bankAtk, bankDef)
-	|| (NO_MOLD_BREAKERS(ABILITY(bankAtk), move) && IsAffectedByDisguse(ability, species, CalcMoveSplit(move, bankAtk, bankDef))))
+	|| (IS_MOLD_BREAKER(ABILITY(bankAtk), move) && IsAffectedByDisguse(ability, species, CalcMoveSplit(move, bankAtk, bankDef))))
 	{
 		if (numHits > 0)
 			numHits -= 1; //Takes at least a hit to break Disguise/Ice Face or sub
@@ -1276,7 +1276,7 @@ bool8 MoveKnocksOutFromParty(u16 move, struct Pokemon* monAtk, u8 bankDef, struc
 	u8 atkAbility = (damageData != NULL) ? damageData->atkAbility : GetMonAbilityAfterTrace(monAtk, bankDef);
 	u8 defAbility = ABILITY(bankDef);
 	u16 species = SPECIES(bankDef);
-	bool8 noMoldBreakers = NO_MOLD_BREAKERS(atkAbility, move);
+	bool8 noMoldBreakers = IS_MOLD_BREAKER(atkAbility, move);
 
 	if (MonMoveBlockedBySubstitute(move, monAtk, bankDef)
 	|| (noMoldBreakers && IsAffectedByDisguse(defAbility, species, CalcMoveSplitFromParty(move, monAtk))))
@@ -2209,7 +2209,7 @@ u8 TryReplaceImposterAbility(u8 ability, u8 monBank) //monBank is the bank the m
 //These by default are not handled in IsUnusableMove
 bool8 IsDamagingMoveUnusable(u16 move, u8 bankAtk, u8 bankDef)
 {
-	if (NO_MOLD_BREAKERS(ABILITY(bankAtk), move))
+	if (IS_MOLD_BREAKER(ABILITY(bankAtk), move))
 	{
 		switch (ABILITY(bankDef))
 		{
@@ -2282,7 +2282,7 @@ bool8 IsDamagingMoveUnusable(u16 move, u8 bankAtk, u8 bankDef)
 				return TRUE;
 			if (IsDynamaxed(bankDef) && !HasRaidShields(bankDef))
 				return TRUE;
-			if (NO_MOLD_BREAKERS(ABILITY(bankAtk), move) && ABILITY(bankDef) == ABILITY_STURDY)
+			if (IS_MOLD_BREAKER(ABILITY(bankAtk), move) && ABILITY(bankDef) == ABILITY_STURDY)
 				return TRUE;
 			break;
 		case EFFECT_SUCKER_PUNCH:
@@ -2323,7 +2323,7 @@ bool8 IsDamagingMoveUnusable(u16 move, u8 bankAtk, u8 bankDef)
 
 bool8 IsDamagingMoveUnusableByMon(u16 move, struct Pokemon* monAtk, u8 bankDef)
 {
-	if (NO_MOLD_BREAKERS(GetMonAbilityAfterTrace(monAtk, bankDef), move))
+	if (IS_MOLD_BREAKER(GetMonAbilityAfterTrace(monAtk, bankDef), move))
 	{
 		switch (ABILITY(bankDef))
 		{
@@ -3052,7 +3052,6 @@ bool8 BadIdeaToMakeContactWith(u8 bankAtk, u8 bankDef)
 			break;
 		case ABILITY_MUMMY:
 		case ABILITY_WANDERINGSPIRIT:
-		case ABILITY_COTTONDOWN:
 		case ABILITY_PERISHBODY:
 			return TRUE;
 	}

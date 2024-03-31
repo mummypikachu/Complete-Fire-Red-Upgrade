@@ -262,8 +262,9 @@ void atk23_getexp(void)
 		calculatedExp = ExpCalculator(trainerBonus, tradeBonus, baseExp, eggBoost, defLevel, pokeLevel, passPower, affection, evolutionBoost, divisor);
 
 	SKIP_EXP_CALC:
-		calculatedExp = MathMax(1, calculatedExp);
-		gBattleMoveDamage = calculatedExp;
+        calculatedExp = MathMax(1, calculatedExp);
+        if (pokeLevel >= GetCap()) calculatedExp = 1;
+        gBattleMoveDamage = calculatedExp;
 
 		gBattleScripting.expStateTracker++;
 	__attribute__ ((fallthrough));

@@ -13,45 +13,45 @@
 
 extern const u8 gAbilityNames[][ABILITY_NAME_LENGTH + 1];
 extern const u8* gAbilityDescriptions[];
-extern const u8 gText_AbilityName_AirLock[];
-extern const u8 gText_AbilityName_VitalSpirit[];
-extern const u8 gText_AbilityName_WhiteSmoke[];
-extern const u8 gText_AbilityName_PurePower[];
-extern const u8 gText_AbilityName_IronBarbs[];
-extern const u8 gText_AbilityName_SolidRock[];
-extern const u8 gText_AbilityName_Turboblaze[];
-extern const u8 gText_AbilityName_Teravolt[];
-extern const u8 gText_AbilityName_ChillingNeigh[];
-extern const u8 gText_AbilityName_Libero[];
-extern const u8 gText_AbilityName_TanglingHair[];
-extern const u8 gText_AbilityName_WimpOut[];
-extern const u8 gText_AbilityName_QueenlyMajesty[];
-extern const u8 gText_AbilityName_PowerOfAlchemy[];
-extern const u8 gText_AbilityName_PropellerTail[];
+extern const u8 NAME_AIRLOCK[];
+extern const u8 NAME_VITALSPIRIT[];
+extern const u8 NAME_WHITESMOKE[];
+extern const u8 NAME_PUREPOWER[];
+extern const u8 NAME_IRONBARBS[];
+extern const u8 NAME_SOLIDROCK[];
+extern const u8 NAME_CHILLINGNEIGH[];
+extern const u8 NAME_LIBREO[];
+extern const u8 NAME_TANGLINGHAIR[];
+extern const u8 NAME_WIMPOUT[];
+extern const u8 NAME_QUEENLYMAJESTY[];
+extern const u8 NAME_POWEOFALCHEMY[];
+extern const u8 NAME_PROPELLERTAIL[];
+extern const u8 NAME_BLAZINGRUSH[];
+
 
 //Unbound Custom Abilities
-extern const u8 gText_AbilityName_NineLives[];
-extern const u8 gText_AbilityName_FocusBelt[];
-extern const u8 gText_AbilityName_Evaporate[];
-extern const u8 gText_AbilityName_FieryNeigh[];
-extern const u8 gText_AbilityName_ShockingNeigh[];
-extern const u8 gText_AbilityName_Pride[];
-extern const u8 gText_AbilityName_Multieye[];
-extern const u8 gText_AbilityName_Subterfuge[];
-extern const u8 gText_AbilityName_TanglingWool[];
-extern const u8 gText_AbilityName_BrainBond[];
-extern const u8 gText_AbilityName_GrassDash[];
-extern const u8 gText_AbilityName_SlipperyTail[];
-extern const u8 gText_AbilityName_DrillBeak[];
-extern const u8 gText_AbilityName_CottonCloud[];
-extern const u8 gText_AbilityName_Bellow[];
-extern const u8 gText_AbilityName_SoundWaves[];
-extern const u8 gText_AbilityName_IcySkin[];
-extern const u8 gText_AbilityName_DustyScales[];
-extern const u8 gText_AbilityName_CrabbyTactics[];
-extern const u8 gText_AbilityName_HoneyArmor[];
-extern const u8 gText_AbilityName_FaceShield[];
-extern const u8 gText_AbilityName_RoyalRoar[];
+extern const u8 NAME_NineLives[];
+extern const u8 NAME_FocusBelt[];
+extern const u8 NAME_Evaporate[];
+extern const u8 NAME_FieryNeigh[];
+extern const u8 NAME_ShockingNeigh[];
+extern const u8 NAME_Pride[];
+extern const u8 NAME_Multieye[];
+extern const u8 NAME_Subterfuge[];
+extern const u8 NAME_TanglingWool[];
+extern const u8 NAME_BrainBond[];
+extern const u8 NAME_GrassDash[];
+extern const u8 NAME_SlipperyTail[];
+extern const u8 NAME_DrillBeak[];
+extern const u8 NAME_CottonCloud[];
+extern const u8 NAME_Bellow[];
+extern const u8 NAME_SoundWaves[];
+extern const u8 NAME_IcySkin[];
+extern const u8 NAME_DustyScales[];
+extern const u8 NAME_CrabbyTactics[];
+extern const u8 NAME_HoneyArmor[];
+extern const u8 NAME_FaceShield[];
+extern const u8 NAME_RoyalRoar[];
 
 extern const u8 gText_AbilityDescription_Evaporate[];
 extern const u8 gText_AbilityDescription_GrassDash[];
@@ -69,17 +69,21 @@ const u8* GetAbilityNameOverride(const u8 ability, const u16 species) //Bypasses
 			{
 				#ifdef NATIONAL_DEX_RAYQUAZA
 				case NATIONAL_DEX_RAYQUAZA:
-					return gText_AbilityName_AirLock;
+					return NAME_AIRLOCK;
 				#endif
 			}
 			break;
+		case ABILITY_CHLOROPHYLL:
+			if (IsSpeciesOfType(species, TYPE_FIRE)) //Species original type is Steel - Assumes Ferroseed, Ferrothorn, and Togedemaru types haven't changed
+				return NAME_BLAZINGRUSH; //Gives all Steel-types with Rough Skin in randomizers Iron Barbs instead
+			break;
 		case ABILITY_INSOMNIA:
 			if (IsVitalSpiritAbility(ability, species))
-				return gText_AbilityName_VitalSpirit;
+				return NAME_VITALSPIRIT;
 			break;
 		case ABILITY_CLEARBODY:
 			if (IsWhiteSmokeAbility(ability, species))
-				return gText_AbilityName_WhiteSmoke;
+				return NAME_WHITESMOKE;
 			break;
 		case ABILITY_HUGEPOWER:
 			switch (dexNum)
@@ -87,29 +91,29 @@ const u8* GetAbilityNameOverride(const u8 ability, const u16 species) //Bypasses
 				#if (defined NATIONAL_DEX_MEDITITE && defined NATIONAL_DEX_MEDICHAM)
 				case NATIONAL_DEX_MEDITITE:
 				case NATIONAL_DEX_MEDICHAM:
-					return gText_AbilityName_PurePower;
+					return NAME_PUREPOWER;
 				#endif
 			}
 			break;
 		case ABILITY_ROUGHSKIN:
 			if (IsSpeciesOfType(species, TYPE_STEEL)) //Species original type is Steel - Assumes Ferroseed, Ferrothorn, and Togedemaru types haven't changed
-				return gText_AbilityName_IronBarbs; //Gives all Steel-types with Rough Skin in randomizers Iron Barbs instead
+				return NAME_IRONBARBS; //Gives all Steel-types with Rough Skin in randomizers Iron Barbs instead
 			break;
-		case ABILITY_STURDY:
-			switch (dexNum)
-			{
-				#if (defined NATIONAL_DEX_MEOWTH && defined NATIONAL_DEX_PERSIAN)
-				case NATIONAL_DEX_MEOWTH:
-				case NATIONAL_DEX_PERSIAN:
-					return gText_AbilityName_NineLives;
-				#endif
-				#if (defined NATIONAL_DEX_MACHOKE && defined NATIONAL_DEX_MACHAMP)
-				case NATIONAL_DEX_MACHOKE:
-				case NATIONAL_DEX_MACHAMP:
-					return gText_AbilityName_FocusBelt;
-				#endif
-			}
-			break;
+		// case ABILITY_STURDY:
+		// 	switch (dexNum)
+		// 	{
+		// 		#if (defined NATIONAL_DEX_MEOWTH && defined NATIONAL_DEX_PERSIAN)
+		// 		case NATIONAL_DEX_MEOWTH:
+		// 		case NATIONAL_DEX_PERSIAN:
+		// 			return NAME_NineLives;
+		// 		#endif
+		// 		#if (defined NATIONAL_DEX_MACHOKE && defined NATIONAL_DEX_MACHAMP)
+		// 		case NATIONAL_DEX_MACHOKE:
+		// 		case NATIONAL_DEX_MACHAMP:
+		// 			return NAME_FocusBelt;
+		// 		#endif
+		// 	}
+		// 	break;
 		case ABILITY_FILTER:
 			switch (dexNum)
 			{
@@ -121,55 +125,49 @@ const u8* GetAbilityNameOverride(const u8 ability, const u16 species) //Bypasses
 				#ifdef NATIONAL_DEX_STONJOURNER
 				case NATIONAL_DEX_STONJOURNER:
 				#endif
-					return gText_AbilityName_SolidRock;
+					return NAME_SOLIDROCK;
 				#endif
 			}
 			break;
-		case ABILITY_MOLDBREAKER:
-			if (SpeciesHasTurboblaze(species))
-				return gText_AbilityName_Turboblaze;
-			else if (SpeciesHasTeravolt(species))
-				return gText_AbilityName_Teravolt;
-			break;
-		case ABILITY_STORMDRAIN:
-			if (SpeciesHasEvaporate(species))
-				return gText_AbilityName_Evaporate;
-			break;
+		// case ABILITY_STORMDRAIN:
+		// 	if (SpeciesHasEvaporate(species))
+		// 		return NAME_Evaporate;
+		// 	break;
 		case ABILITY_MOXIE:
 			switch (dexNum)
 			{
 				#ifdef NATIONAL_DEX_GLASTRIER
 				case NATIONAL_DEX_GLASTRIER:
-					return gText_AbilityName_ChillingNeigh;
+					return NAME_CHILLINGNEIGH;
 				#endif
-				#if (defined NATIONAL_DEX_PONYTA && defined NATIONAL_DEX_RAPIDASH)
-				case NATIONAL_DEX_PONYTA:
-				case NATIONAL_DEX_RAPIDASH:
-					return gText_AbilityName_FieryNeigh;
-				#endif
-				#if (defined NATIONAL_DEX_BLITZLE && defined NATIONAL_DEX_ZEBSTRIKA)
-				case NATIONAL_DEX_BLITZLE:
-				case NATIONAL_DEX_ZEBSTRIKA:
-					return gText_AbilityName_ShockingNeigh;
-				#endif
-				#if (defined NATIONAL_DEX_PIDOVE && defined NATIONAL_DEX_TRANQUILL && defined NATIONAL_DEX_UNFEZANT)
-				case NATIONAL_DEX_PIDOVE:
-				case NATIONAL_DEX_TRANQUILL:
-				case NATIONAL_DEX_UNFEZANT:
-					return gText_AbilityName_Pride;
-				#endif
+				// #if (defined NATIONAL_DEX_PONYTA && defined NATIONAL_DEX_RAPIDASH)
+				// case NATIONAL_DEX_PONYTA:
+				// case NATIONAL_DEX_RAPIDASH:
+				// 	return NAME_FieryNeigh;
+				// #endif
+				// #if (defined NATIONAL_DEX_BLITZLE && defined NATIONAL_DEX_ZEBSTRIKA)
+				// case NATIONAL_DEX_BLITZLE:
+				// case NATIONAL_DEX_ZEBSTRIKA:
+				// 	return NAME_ShockingNeigh;
+				// #endif
+				// #if (defined NATIONAL_DEX_PIDOVE && defined NATIONAL_DEX_TRANQUILL && defined NATIONAL_DEX_UNFEZANT)
+				// case NATIONAL_DEX_PIDOVE:
+				// case NATIONAL_DEX_TRANQUILL:
+				// case NATIONAL_DEX_UNFEZANT:
+				// 	return NAME_Pride;
+				// #endif
 			}
 			break;
-		case ABILITY_MULTISCALE:
-			switch (dexNum)
-			{
-				#if (defined NATIONAL_DEX_BALTOY && defined NATIONAL_DEX_CLAYDOL)
-				case NATIONAL_DEX_BALTOY:
-				case NATIONAL_DEX_CLAYDOL:
-					return gText_AbilityName_Multieye;
-				#endif
-			}
-			break;
+		// case ABILITY_MULTISCALE:
+		// 	switch (dexNum)
+		// 	{
+		// 		#if (defined NATIONAL_DEX_BALTOY && defined NATIONAL_DEX_CLAYDOL)
+		// 		case NATIONAL_DEX_BALTOY:
+		// 		case NATIONAL_DEX_CLAYDOL:
+		// 			return NAME_Multieye;
+		// 		#endif
+		// 	}
+		// 	break;
 		case ABILITY_PROTEAN:
 			switch (dexNum)
 			{
@@ -177,53 +175,58 @@ const u8* GetAbilityNameOverride(const u8 ability, const u16 species) //Bypasses
 				case NATIONAL_DEX_SCORBUNNY:
 				case NATIONAL_DEX_RABOOT:
 				case NATIONAL_DEX_CINDERACE:
-					return gText_AbilityName_Libero;
+					return NAME_LIBREO;
 				#endif
-				#ifdef NATIONAL_DEX_MOTHIM
-				case NATIONAL_DEX_MOTHIM:
-					return gText_AbilityName_Subterfuge;
-				#endif
+				// #ifdef NATIONAL_DEX_MOTHIM
+				// case NATIONAL_DEX_MOTHIM:
+				// 	return NAME_Subterfuge;
+				// #endif
 			}
 			break;
 		case ABILITY_GOOEY:
 			switch (dexNum)
 			{
+				#if (defined NATIONAL_DEX_TANGELA && defined NATIONAL_DEX_TANGROWTH)
+				case NATIONAL_DEX_TANGELA:
+				case NATIONAL_DEX_TANGROWTH:
+					return NAME_TANGLINGHAIR;
+				#endif
 				#if (defined NATIONAL_DEX_DIGLETT && defined NATIONAL_DEX_DUGTRIO)
 				case NATIONAL_DEX_DIGLETT:
 				case NATIONAL_DEX_DUGTRIO:
-					return gText_AbilityName_TanglingHair;
+					return NAME_TANGLINGHAIR;
 				#endif
-				#if (defined NATIONAL_DEX_MAREEP && defined NATIONAL_DEX_FLAAFFY && defined NATIONAL_DEX_AMPHAROS)
-				case NATIONAL_DEX_MAREEP:
-				case NATIONAL_DEX_FLAAFFY:
-				case NATIONAL_DEX_AMPHAROS:
-					return gText_AbilityName_TanglingWool;
-				#endif
+				// #if (defined NATIONAL_DEX_MAREEP && defined NATIONAL_DEX_FLAAFFY && defined NATIONAL_DEX_AMPHAROS)
+				// case NATIONAL_DEX_MAREEP:
+				// case NATIONAL_DEX_FLAAFFY:
+				// case NATIONAL_DEX_AMPHAROS:
+				// 	return NAME_TanglingWool;
+				// #endif
 			}
 			break;
-		case ABILITY_PARENTALBOND:
-			switch (dexNum)
-			{
-				default:
-					break;
-				#ifdef NATIONAL_DEX_GIRAFARIG
-				case NATIONAL_DEX_GIRAFARIG:
-				#endif
-					return gText_AbilityName_BrainBond;
-			}
-			break;
-		case ABILITY_GALEWINGS:
-			if (SpeciesHasGrassDash(species))
-				return gText_AbilityName_GrassDash;
-			else if (SpeciesHasSlipperyTail(species))
-				return gText_AbilityName_SlipperyTail;
-			break;
+		// case ABILITY_PARENTALBOND:
+		// 	switch (dexNum)
+		// 	{
+		// 		default:
+		// 			break;
+		// 		#ifdef NATIONAL_DEX_GIRAFARIG
+		// 		case NATIONAL_DEX_GIRAFARIG:
+		// 		#endif
+		// 			return NAME_BrainBond;
+		// 	}
+		// 	break;
+		// case ABILITY_GALEWINGS:
+		// 	if (SpeciesHasGrassDash(species))
+		// 		return NAME_GrassDash;
+		// 	else if (SpeciesHasSlipperyTail(species))
+		// 		return NAME_SlipperyTail;
+		// 	break;
 		case ABILITY_EMERGENCYEXIT:
 			switch (dexNum)
 			{
 				#ifdef NATIONAL_DEX_WIMPOD
 				case NATIONAL_DEX_WIMPOD:
-					return gText_AbilityName_WimpOut;
+					return NAME_WIMPOUT;
 				#endif
 			}
 			break;
@@ -241,7 +244,7 @@ const u8* GetAbilityNameOverride(const u8 ability, const u16 species) //Bypasses
 				#ifdef NATIONAL_DEX_VESPIQUEN
 				case NATIONAL_DEX_VESPIQUEN:
 				#endif
-					return gText_AbilityName_QueenlyMajesty;
+					return NAME_QUEENLYMAJESTY;
 			}
 			break;
 		case ABILITY_RECEIVER:
@@ -250,107 +253,97 @@ const u8* GetAbilityNameOverride(const u8 ability, const u16 species) //Bypasses
 				#if (defined NATIONAL_DEX_GRIMER && defined NATIONAL_DEX_MUK)
 				case NATIONAL_DEX_GRIMER:
 				case NATIONAL_DEX_MUK:
-					return gText_AbilityName_PowerOfAlchemy;
+					return NAME_POWEOFALCHEMY;
 				#endif
 			}
 			break;
-		case ABILITY_MERCILESS:
-			if (SpeciesHasDrillBeak(species))
-				return gText_AbilityName_DrillBeak;
-			break;
+		// case ABILITY_MERCILESS:
+		// 	if (SpeciesHasDrillBeak(species))
+		// 		return NAME_DrillBeak;
+		// 	break;
 		case ABILITY_STALWART:
 			switch (dexNum)
 			{
 				#if (defined NATIONAL_DEX_ARROKUDA && defined NATIONAL_DEX_BARRASKEWDA)
 				case NATIONAL_DEX_ARROKUDA:
 				case NATIONAL_DEX_BARRASKEWDA:
-					return gText_AbilityName_PropellerTail;
+					return NAME_PROPELLERTAIL;
 				#endif
 			}
 			break;
-		case ABILITY_COTTONDOWN:
-			switch (dexNum)
-			{
-				#if (defined NATIONAL_DEX_SWABLU && defined NATIONAL_DEX_ALTARIA)
-				case NATIONAL_DEX_SWABLU:
-				case NATIONAL_DEX_ALTARIA:
-					return gText_AbilityName_CottonCloud;
-				#endif
-			}
-			break;
-		case ABILITY_PUNKROCK:
-			switch (dexNum)
-			{
-				#if (defined NATIONAL_DEX_WHISMUR && defined NATIONAL_DEX_LOUDRED && defined NATIONAL_DEX_EXPLOUD)
-				case NATIONAL_DEX_WHISMUR:
-				case NATIONAL_DEX_LOUDRED:
-				case NATIONAL_DEX_EXPLOUD:
-					return gText_AbilityName_Bellow;
-				#endif
-				#if (defined NATIONAL_DEX_VIBRAVA && defined NATIONAL_DEX_FLYGON)
-				case NATIONAL_DEX_VIBRAVA:
-				case NATIONAL_DEX_FLYGON:
-					return gText_AbilityName_SoundWaves;
-				#endif
-				#if (defined NATIONAL_DEX_NOIBAT && defined NATIONAL_DEX_NOIVERN)
-				case NATIONAL_DEX_NOIBAT:
-				case NATIONAL_DEX_NOIVERN:
-					return gText_AbilityName_SoundWaves;
-				#endif
-			}
-			break;
-		case ABILITY_ICESCALES:
-			switch (dexNum)
-			{
-				default:
-					break;
-				#ifdef NATIONAL_DEX_GLACEON
-				case NATIONAL_DEX_GLACEON:
-				#endif
-				#if (defined NATIONAL_DEX_SMOOCHUM && defined NATIONAL_DEX_JYNX)
-				case NATIONAL_DEX_SMOOCHUM:
-				case NATIONAL_DEX_JYNX:
-					return gText_AbilityName_IcySkin;
-				#endif
-				#ifdef NATIONAL_DEX_DUSTOX
-				case NATIONAL_DEX_DUSTOX:
-					return gText_AbilityName_DustyScales;
-				#endif
-			}
-			break;
-		case ABILITY_GORILLATACTICS:
-			switch (dexNum)
-			{
-				#ifdef NATIONAL_DEX_CRABOMINABLE
-				case NATIONAL_DEX_CRABOMINABLE:
-					return gText_AbilityName_CrabbyTactics;
-				#endif
-			}
-			break;
-		case ABILITY_DAUNTLESSSHIELD:
-			switch (dexNum)
-			{
-				#if (defined NATIONAL_DEX_SHIELDON && defined NATIONAL_DEX_BASTIODON)
-				case NATIONAL_DEX_SHIELDON:
-				case NATIONAL_DEX_BASTIODON:
-					return gText_AbilityName_FaceShield;
-				#endif
-				#ifdef NATIONAL_DEX_VESPIQUEN
-				case NATIONAL_DEX_VESPIQUEN:
-					return gText_AbilityName_HoneyArmor;
-				#endif
-			}
-			break;
-		case ABILITY_GRIMNEIGH:
-			switch (dexNum)
-			{
-				#if (defined NATIONAL_DEX_LITLEO && defined NATIONAL_DEX_PYROAR)
-				case NATIONAL_DEX_LITLEO:
-				case NATIONAL_DEX_PYROAR:
-					return gText_AbilityName_RoyalRoar;
-				#endif
-			}
-			break;
+		// case ABILITY_PUNKROCK:
+		// 	switch (dexNum)
+		// 	{
+		// 		#if (defined NATIONAL_DEX_WHISMUR && defined NATIONAL_DEX_LOUDRED && defined NATIONAL_DEX_EXPLOUD)
+		// 		case NATIONAL_DEX_WHISMUR:
+		// 		case NATIONAL_DEX_LOUDRED:
+		// 		case NATIONAL_DEX_EXPLOUD:
+		// 			return NAME_Bellow;
+		// 		#endif
+		// 		#if (defined NATIONAL_DEX_VIBRAVA && defined NATIONAL_DEX_FLYGON)
+		// 		case NATIONAL_DEX_VIBRAVA:
+		// 		case NATIONAL_DEX_FLYGON:
+		// 			return NAME_SoundWaves;
+		// 		#endif
+		// 		#if (defined NATIONAL_DEX_NOIBAT && defined NATIONAL_DEX_NOIVERN)
+		// 		case NATIONAL_DEX_NOIBAT:
+		// 		case NATIONAL_DEX_NOIVERN:
+		// 			return NAME_SoundWaves;
+		// 		#endif
+		// 	}
+		// 	break;
+		// case ABILITY_ICESCALES:
+		// 	switch (dexNum)
+		// 	{
+		// 		default:
+		// 			break;
+		// 		#ifdef NATIONAL_DEX_GLACEON
+		// 		case NATIONAL_DEX_GLACEON:
+		// 		#endif
+		// 		#if (defined NATIONAL_DEX_SMOOCHUM && defined NATIONAL_DEX_JYNX)
+		// 		case NATIONAL_DEX_SMOOCHUM:
+		// 		case NATIONAL_DEX_JYNX:
+		// 			return NAME_IcySkin;
+		// 		#endif
+		// 		#ifdef NATIONAL_DEX_DUSTOX
+		// 		case NATIONAL_DEX_DUSTOX:
+		// 			return NAME_DustyScales;
+		// 		#endif
+		// 	}
+		// 	break;
+		// case ABILITY_GORILLATACTICS:
+		// 	switch (dexNum)
+		// 	{
+		// 		#ifdef NATIONAL_DEX_CRABOMINABLE
+		// 		case NATIONAL_DEX_CRABOMINABLE:
+		// 			return NAME_CrabbyTactics;
+		// 		#endif
+		// 	}
+		// 	break;
+		// case ABILITY_DAUNTLESSSHIELD:
+		// 	switch (dexNum)
+		// 	{
+		// 		#if (defined NATIONAL_DEX_SHIELDON && defined NATIONAL_DEX_BASTIODON)
+		// 		case NATIONAL_DEX_SHIELDON:
+		// 		case NATIONAL_DEX_BASTIODON:
+		// 			return NAME_FaceShield;
+		// 		#endif
+		// 		#ifdef NATIONAL_DEX_VESPIQUEN
+		// 		case NATIONAL_DEX_VESPIQUEN:
+		// 			return NAME_HoneyArmor;
+		// 		#endif
+		// 	}
+		// 	break;
+		// case ABILITY_GRIMNEIGH:
+		// 	switch (dexNum)
+		// 	{
+		// 		#if (defined NATIONAL_DEX_LITLEO && defined NATIONAL_DEX_PYROAR)
+		// 		case NATIONAL_DEX_LITLEO:
+		// 		case NATIONAL_DEX_PYROAR:
+		// 			return NAME_RoyalRoar;
+		// 		#endif
+		// 	}
+		// 	break;
 	}
 
 	return NULL;
@@ -376,17 +369,6 @@ const u8* GetAbilityDescriptionOverride(const u8 ability, const u16 species) //B
 	{
 		case ABILITY_STORMDRAIN:
 			if (SpeciesHasEvaporate(species))
-				return gText_AbilityDescription_Evaporate;
-			break;
-		case ABILITY_GALEWINGS:
-			if (SpeciesHasGrassDash(species))
-				return gText_AbilityDescription_GrassDash;
-			else if (SpeciesHasSlipperyTail(species))
-				return gText_AbilityDescription_SlipperyTail;
-			break;
-		case ABILITY_MERCILESS:
-			if (SpeciesHasDrillBeak(species))
-				return gText_AbilityDescription_DrillBeak;
 			break;
 	}
 
@@ -458,85 +440,85 @@ bool8 IsTargetAbilityIgnoredNoMove(u8 defAbility, u8 atkAbility)
 	return IsMoldBreakerAbility(atkAbility) && gSpecialAbilityFlags[defAbility].gMoldBreakerIgnoredAbilities;
 }
 
-bool8 SpeciesHasTurboblaze(unusedArg u16 species)
-{
-	#if (defined SPECIES_RESHIRAM && defined SPECIES_KYUREM_WHITE)
-	return species == SPECIES_RESHIRAM
-		|| species == SPECIES_KYUREM_WHITE;
-	#else
-	return FALSE;
-	#endif
-}
+// bool8 SpeciesHasTurboblaze(unusedArg u16 species)
+// {
+// 	#if (defined SPECIES_RESHIRAM && defined SPECIES_KYUREM_WHITE)
+// 	return species == SPECIES_RESHIRAM
+// 		|| species == SPECIES_KYUREM_WHITE;
+// 	#else
+// 	return FALSE;
+// 	#endif
+// }
 
-bool8 SpeciesHasTeravolt(unusedArg u16 species)
-{
-	#if (defined SPECIES_ZEKROM && defined SPECIES_KYUREM_BLACK)
-	return species == SPECIES_ZEKROM
-		|| species == SPECIES_KYUREM_BLACK;
-	#else
-	return FALSE;
-	#endif
-}
+// bool8 SpeciesHasTeravolt(unusedArg u16 species)
+// {
+// 	#if (defined SPECIES_ZEKROM && defined SPECIES_KYUREM_BLACK)
+// 	return species == SPECIES_ZEKROM
+// 		|| species == SPECIES_KYUREM_BLACK;
+// 	#else
+// 	return FALSE;
+// 	#endif
+// }
 
-bool8 SpeciesHasDrillBeak(unusedArg u16 species) //Custom Unbound Ability
-{
-	#if (defined SPECIES_SPEAROW && defined SPECIES_FEAROW)
-	return species == SPECIES_SPEAROW || species == SPECIES_FEAROW;
-	#else
-	return FALSE;
-	#endif
-}
+// bool8 SpeciesHasDrillBeak(unusedArg u16 species) //Custom Unbound Ability
+// {
+// 	#if (defined SPECIES_SPEAROW && defined SPECIES_FEAROW)
+// 	return species == SPECIES_SPEAROW || species == SPECIES_FEAROW;
+// 	#else
+// 	return FALSE;
+// 	#endif
+// }
 
-bool8 SpeciesHasGrassDash(unusedArg u16 species) //Custom Unbound Ability
-{
-	#ifdef SPECIES_SUNFLORA
-	return species == SPECIES_SUNFLORA;
-	#else
-	return FALSE;
-	#endif
-}
+// bool8 SpeciesHasGrassDash(unusedArg u16 species) //Custom Unbound Ability
+// {
+// 	#ifdef SPECIES_SUNFLORA
+// 	return species == SPECIES_SUNFLORA;
+// 	#else
+// 	return FALSE;
+// 	#endif
+// }
 
-bool8 SpeciesHasEvaporate(unusedArg u16 species) //Custom Unbound Ability
-{
-	#ifdef SPECIES_MAGCARGO
-	return species == SPECIES_MAGCARGO;
-	#else
-	return FALSE;
-	#endif
-}
+// bool8 SpeciesHasEvaporate(unusedArg u16 species) //Custom Unbound Ability
+// {
+// 	#ifdef SPECIES_MAGCARGO
+// 	return species == SPECIES_MAGCARGO;
+// 	#else
+// 	return FALSE;
+// 	#endif
+// }
 
-bool8 SpeciesHasSlipperyTail(unusedArg u16 species) //Custom Unbound Ability
-{
-	#ifdef SPECIES_SEVIPER
-	return species == SPECIES_SEVIPER;
-	#else
-	return FALSE;
-	#endif
-}
+// bool8 SpeciesHasSlipperyTail(unusedArg u16 species) //Custom Unbound Ability
+// {
+// 	#ifdef SPECIES_SEVIPER
+// 	return species == SPECIES_SEVIPER;
+// 	#else
+// 	return FALSE;
+// 	#endif
+// }
 
-bool8 IsClearBodyAbility(u8 ability)
-{
-	return ability == ABILITY_CLEARBODY
-		#ifdef ABILITY_FULLMETALBODY
-		|| ability == ABILITY_FULLMETALBODY
-		#endif
-		#ifdef ABILITY_WHITESMOKE
-		|| ability == ABILITY_WHITESMOKE
-		#endif
-		;
-}
+// bool8 IsClearBodyAbility(u8 ability)
+// {
+// 	return ability == ABILITY_CLEARBODY
+// 		#ifdef ABILITY_FULLMETALBODY
+// 		|| ability == ABILITY_FULLMETALBODY
+// 		#endif
+// 		#ifdef ABILITY_WHITESMOKE
+// 		|| ability == ABILITY_WHITESMOKE
+// 		#endif
+// 		;
+// }
 
-bool8 IsMoldBreakerAbility(u8 ability)
-{
-	return ability == ABILITY_MOLDBREAKER
-		#ifdef ABILITY_TURBOBLAZE
-		|| ability == ABILITY_TURBOBLAZE
-		#endif
-		#ifdef ABILITY_TERAVOLT
-		|| ability == ABILITY_TERAVOLT
-		#endif
-		;
-}
+// bool8 IsMoldBreakerAbility(u8 ability)
+// {
+// 	return ability == ABILITY_MOLDBREAKER
+// 		#ifdef ABILITY_TURBOBLAZE
+// 		|| ability == ABILITY_TURBOBLAZE
+// 		#endif
+// 		#ifdef ABILITY_TERAVOLT
+// 		|| ability == ABILITY_TERAVOLT
+// 		#endif
+// 		;
+// }
 
 bool8 IsMoxieAbility(u8 ability)
 {
@@ -665,7 +647,6 @@ bool8 AbilityBlocksIntimidate(u8 ability)
 {
 	return ability == ABILITY_INNERFOCUS
 		|| ability == ABILITY_OWNTEMPO
-		|| ability == ABILITY_OBLIVIOUS
 		|| ability == ABILITY_SCRAPPY;
 }
 

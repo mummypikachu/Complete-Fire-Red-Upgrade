@@ -2177,7 +2177,7 @@ u8 AIScript_Positives(const u8 bankAtk, const u8 bankDef, const u16 originalMove
 			if (CalcSecondaryEffectChance(bankAtk, move, atkAbility) < 60 || MoveBlockedBySubstitute(move, bankAtk, bankDef))
 				break;
 
-			u8 secretPowerEffect = GetSecretPowerEffect() & ~(MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN);
+			u8 secretPowerEffect = (MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN);
 			switch (secretPowerEffect) {
 				case MOVE_EFFECT_SLEEP:
 					goto AI_SLEEP_CHECKS;

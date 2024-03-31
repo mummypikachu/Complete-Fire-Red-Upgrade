@@ -548,7 +548,7 @@ u32 AI_CalcDmg(const u8 bankAtk, const u8 bankDef, const u16 move, struct Damage
 	{
 		//Multi hit moves skip these checks
 		if (gBattleMoves[move].effect == EFFECT_FALSE_SWIPE
-		|| (IsAffectedBySturdy(damageData->defAbility, bankDef) && NO_MOLD_BREAKERS(damageData->atkAbility, move))
+		|| (IsAffectedBySturdy(damageData->defAbility, bankDef) && IS_MOLD_BREAKER(damageData->atkAbility, move))
 		|| IsAffectedByFocusSash(bankDef))
 			damage = MathMin(damage, gBattleMons[bankDef].hp - 1);
 	}
@@ -657,7 +657,7 @@ u32 AI_CalcPartyDmg(u8 bankAtk, u8 bankDef, u16 move, struct Pokemon* monAtk, st
 	{
 		//Multi hit moves skip these checks
 		if (gBattleMoves[move].effect == EFFECT_FALSE_SWIPE
-		|| (IsAffectedBySturdy(damageData->defAbility, bankDef) && NO_MOLD_BREAKERS(damageData->atkAbility, move))
+		|| (IsAffectedBySturdy(damageData->defAbility, bankDef) && IS_MOLD_BREAKER(damageData->atkAbility, move))
 		|| IsAffectedByFocusSash(bankDef))
 			damage = MathMin(damage, gBattleMons[bankDef].hp - 1);
 	}
@@ -773,7 +773,7 @@ u32 AI_CalcMonDefDmg(u8 bankAtk, u8 bankDef, u16 move, struct Pokemon* monDef, s
 			damage = MathMin(damage, monDef->hp - 1);
 		else if (GetMonEntryHazardDamage(monDef, SIDE(bankDef)) == 0) //Focus Sash and Sturdy would work
 		{
-			if ((monDef->hp == monDef->maxHP && damageData->defAbility == ABILITY_STURDY && NO_MOLD_BREAKERS(damageData->atkAbility, move))
+			if ((monDef->hp == monDef->maxHP && damageData->defAbility == ABILITY_STURDY && IS_MOLD_BREAKER(damageData->atkAbility, move))
 			 || IsMonAffectedByFocusSash(monDef))
 				damage = MathMin(damage, monDef->hp - 1);
 		}
@@ -1082,7 +1082,7 @@ u8 TypeCalc(u16 move, u8 bankAtk, u8 bankDef, struct Pokemon* monAtk)
 	//Check Special Ground Immunities
 	if (moveType == TYPE_GROUND
 	&& !CheckGrounding(bankDef)
-	&& ((defAbility == ABILITY_LEVITATE && NO_MOLD_BREAKERS(atkAbility, move))
+	&& ((defAbility == ABILITY_LEVITATE && IS_MOLD_BREAKER(atkAbility, move))
 	 || defEffect == ITEM_EFFECT_AIR_BALLOON
 	 || (gStatuses3[bankDef] & (STATUS3_LEVITATING | STATUS3_TELEKINESIS))
 	 || IsFloatingWithMagnetism(bankDef))
@@ -1107,7 +1107,7 @@ u8 TypeCalc(u16 move, u8 bankAtk, u8 bankDef, struct Pokemon* monAtk)
 
 	//Wonder Guard Check
 	if (defAbility == ABILITY_WONDERGUARD
-	&& NO_MOLD_BREAKERS(atkAbility, move)
+	&& IS_MOLD_BREAKER(atkAbility, move)
 	&& !(flags & MOVE_RESULT_MISSED)
 	&& AttacksThisTurn(bankAtk, move) == 2
 	&& (!(flags & MOVE_RESULT_SUPER_EFFECTIVE) || ((flags & (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)) == (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)))
@@ -1165,7 +1165,7 @@ u8 AI_TypeCalc(u16 move, u8 bankAtk, u8 bankDef, struct Pokemon* monDef) //bankD
 	//Check Special Ground Immunities
 	if (moveType == TYPE_GROUND
 	&& !CheckMonGrounding(monDef)
-	&& ((defAbility == ABILITY_LEVITATE && NO_MOLD_BREAKERS(atkAbility, move))
+	&& ((defAbility == ABILITY_LEVITATE && IS_MOLD_BREAKER(atkAbility, move))
 	 || (defEffect == ITEM_EFFECT_AIR_BALLOON && defAbility != ABILITY_KLUTZ)
 	 || IsMonFloatingWithMagnetism(monDef))
 	&& move != MOVE_THOUSANDARROWS)
@@ -1248,7 +1248,7 @@ u8 AI_SpecialTypeCalc(u16 move, u8 bankAtk, u8 bankDef)
 	//Check Special Ground Immunities
 	if (moveType == TYPE_GROUND
 	&& !CheckGrounding(bankDef)
-	&& ((defAbility == ABILITY_LEVITATE && NO_MOLD_BREAKERS(atkAbility, move))
+	&& ((defAbility == ABILITY_LEVITATE && IS_MOLD_BREAKER(atkAbility, move))
 	 || defEffect == ITEM_EFFECT_AIR_BALLOON
 	 || (gStatuses3[bankDef] & (STATUS3_LEVITATING | STATUS3_TELEKINESIS))
 	 || IsFloatingWithMagnetism(bankDef))
@@ -1270,7 +1270,7 @@ u8 AI_SpecialTypeCalc(u16 move, u8 bankAtk, u8 bankDef)
 
 	//Wonder Guard Check
 	if (defAbility == ABILITY_WONDERGUARD
-	&& NO_MOLD_BREAKERS(atkAbility, move)
+	&& IS_MOLD_BREAKER(atkAbility, move)
 	&& !(flags & MOVE_RESULT_MISSED)
 	&& AttacksThisTurn(bankAtk, move) == 2
 	&& (!(flags & MOVE_RESULT_SUPER_EFFECTIVE) || ((flags & (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)) == (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)))
@@ -1335,7 +1335,7 @@ u8 VisualTypeCalc(u16 move, u8 bankAtk, u8 bankDef)
 	else if (moveType == TYPE_GROUND //Check Special Ground Immunities
 	&& SPLIT(move) != SPLIT_STATUS
 	&& !NonInvasiveCheckGrounding(bankDef, defAbility, defType1, defType2, defType3)
-	&& ((defAbility == ABILITY_LEVITATE && NO_MOLD_BREAKERS(atkAbility, move))
+	&& ((defAbility == ABILITY_LEVITATE && IS_MOLD_BREAKER(atkAbility, move))
 	 || defEffect == ITEM_EFFECT_AIR_BALLOON
 	 || (gStatuses3[bankDef] & (STATUS3_LEVITATING | STATUS3_TELEKINESIS))
 	 || IsFloatingWithMagnetism(bankDef)
@@ -1393,7 +1393,7 @@ u8 VisualTypeCalc(u16 move, u8 bankAtk, u8 bankDef)
 
 	//Wonder Guard Check
 	if (defAbility == ABILITY_WONDERGUARD
-	&& NO_MOLD_BREAKERS(atkAbility, move)
+	&& IS_MOLD_BREAKER(atkAbility, move)
 	&& (!(flags & MOVE_RESULT_SUPER_EFFECTIVE) || ((flags & (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)) == (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)))
 	&& gBattleMoves[move].power
 	&& SPLIT(move) != SPLIT_STATUS)
@@ -1778,6 +1778,19 @@ u8 GetExceptionMoveType(u8 bankAtk, u16 move)
 				moveType++;
 			break;
 
+		case MOVE_SECRETPOWER:
+			moveType = ((gBattleMons[bankAtk].hpIV & 1))
+					 | ((gBattleMons[bankAtk].attackIV & 1) << 1)
+					 | ((gBattleMons[bankAtk].defenseIV & 1) << 2)
+					 | ((gBattleMons[bankAtk].speedIV & 1) << 3)
+					 | ((gBattleMons[bankAtk].spAttackIV & 1) << 4)
+					 | ((gBattleMons[bankAtk].spDefenseIV & 1) << 5);
+
+			moveType = (15 * moveType) / 63 + 1;
+			if (moveType >= TYPE_MYSTERY)
+				moveType++;
+			break;
+
 		case MOVE_WEATHERBALL:
 			if (gBattleWeather & WEATHER_RAIN_ANY && !ItemEffectIgnoresSunAndRain(effect) && WEATHER_HAS_EFFECT)
 				moveType = TYPE_WATER;
@@ -1797,7 +1810,7 @@ u8 GetExceptionMoveType(u8 bankAtk, u16 move)
 			if (effect == ITEM_EFFECT_PLATE)
 				moveType = quality;
 			else
-				moveType = TYPE_NORMAL;
+				moveType = TYPE_MYSTERY;
 			break;
 
 		case MOVE_MULTIATTACK:
@@ -1807,7 +1820,7 @@ u8 GetExceptionMoveType(u8 bankAtk, u16 move)
 				moveType = quality;
 			else
 			#endif
-				moveType = TYPE_NORMAL;
+				moveType = TYPE_MYSTERY;
 			break;
 
 		case MOVE_TECHNOBLAST:
@@ -1897,6 +1910,11 @@ u8 GetMonExceptionMoveType(struct Pokemon* mon, u16 move)
 			moveType = CalcMonHiddenPowerType(mon);
 			break;
 
+		switch (move) {
+		case MOVE_SECRETPOWER:
+			moveType = CalcMonSecretPowerType(mon);
+			break;
+
 		case MOVE_WEATHERBALL:
 			if (gMain.inBattle)
 			{
@@ -1975,11 +1993,29 @@ u8 GetMonExceptionMoveType(struct Pokemon* mon, u16 move)
 			}
 			break;
 	}
-
+	}
 	return moveType;
 }
 
 u8 CalcMonHiddenPowerType(struct Pokemon* mon)
+{
+	u8 moveType;
+
+	moveType = ((mon->hpIV & 1)) |
+			   ((mon->attackIV & 1) << 1) |
+			   ((mon->defenseIV & 1) << 2) |
+			   ((mon->speedIV & 1) << 3) |
+			   ((mon->spAttackIV & 1) << 4) |
+			   ((mon->spDefenseIV & 1) << 5);
+
+	moveType = ((15 * moveType) / 63) + 1;
+	if (moveType >= TYPE_MYSTERY)
+		++moveType;
+
+	return moveType;
+}
+
+u8 CalcMonSecretPowerType(struct Pokemon* mon)
 {
 	u8 moveType;
 
@@ -2694,7 +2730,7 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 
 		case ABILITY_DEFEATIST:
 		//0.5x Boost
-			if (data->atkHP <= (data->atkMaxHP / 2))
+			if (data->atkHP <= (data->atkMaxHP / 4))
 			{
 				attack /= 2;
 				spAttack /= 2;
@@ -2746,6 +2782,16 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 			if (!IsDynamaxed(bankAtk))
 				attack = (attack * 15) / 10;
 			break;
+
+		case ABILITY_AMPDRIVE:
+			if (gTerrainType == ELECTRIC_TERRAIN)
+				attack = (attack * 4) / 3;
+			break;
+		
+		case ABILITY_TURBOBLAZE:
+			if (WEATHER_HAS_EFFECT && (gBattleWeather & WEATHER_SUN_ANY))
+				spAttack = (spAttack * 4) / 3;
+			break;
 	}
 
 	switch (data->atkPartnerAbility) {
@@ -2795,7 +2841,16 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 			}
 		#endif
 			break;
+		
+		case ABILITY_ILLUSION:
+		if (STATUS3_ILLUSION)
+		{
+			   attack = (attack * 13) / 10;
+			   spAttack = (spAttack * 13) / 10;
+		}
+            break;
 	}
+
 
 //Attacker Item Checks
 	switch (data->atkItemEffect) {
@@ -2897,6 +2952,9 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 		case ITEM_EFFECT_ASSAULT_VEST:
 			spDefense = (spDefense * 15) / 10;
 			break;
+		case ITEM_EFFECT_STRIKER_VEST:
+			data->defense = (data->defense * 15) / 10;
+			break;
 	}
 
 //Gym Badge Checks
@@ -2931,12 +2989,22 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 			spDefense = (15 * spDefense) / 10; //Ground types get a Sp. Def boost in a "Vicious Sandstorm"
 	}
 
+//Hail Def Increase
+	if (WEATHER_HAS_EFFECT && (gBattleWeather & WEATHER_HAIL_ANY)
+	&& ((!useMonDef && IsOfType(bankDef, TYPE_ICE)) || (useMonDef && IsMonOfType(data->monDef, TYPE_ICE))))
+		data->defense = (15 * data->defense) / 10;
+
 //Old Exploding Check
 	#ifdef OLD_EXPLOSION_BOOST
 		if (move == MOVE_SELFDESTRUCT || move == MOVE_EXPLOSION)
 			defense /= 2;
 		else if (move == MOVE_MISTYEXPLOSION)
 			spDefense /= 2;
+	#endif
+
+	#ifdef OLD_EXPLOSION_BOOST
+		if (move == MOVE_MISTYEXPLOSION)
+			data->spDefense /= 2;
 	#endif
 
 //Stat Buffs - Attacker
@@ -3853,7 +3921,6 @@ static u16 AdjustBasePower(struct DamageCalc* data, u16 power)
 	u16 move = data->move;
 
 	bool8 useMonAtk = data->monAtk != NULL;
-	bool8 useMonDef = data->monDef != NULL;
 
 	if (data->specialFlags & (FLAG_CONFUSION_DAMAGE))
 		return power;
@@ -3866,30 +3933,30 @@ static u16 AdjustBasePower(struct DamageCalc* data, u16 power)
 				power = (power * 15) / 10;
 			break;
 
-		case ABILITY_RIVALRY:
-		//1.25x / 0.75x Boost
-			if (!(data->specialFlags & FLAG_IGNORE_TARGET))
-			{
-				u8 attackerGender, targetGender;
-				if (useMonAtk)
-					attackerGender = GetGenderFromSpeciesAndPersonality(data->atkSpecies, data->monAtk->personality);
-				else
-					attackerGender = GetGenderFromSpeciesAndPersonality(data->atkSpecies, gBattleMons[bankAtk].personality);
+		// case ABILITY_RIVALRY:
+		// //1.25x / 0.75x Boost
+		// 	if (!(data->specialFlags & FLAG_IGNORE_TARGET))
+		// 	{
+		// 		u8 attackerGender, targetGender;
+		// 		if (useMonAtk)
+		// 			attackerGender = GetGenderFromSpeciesAndPersonality(data->atkSpecies, data->monAtk->personality);
+		// 		else
+		// 			attackerGender = GetGenderFromSpeciesAndPersonality(data->atkSpecies, gBattleMons[bankAtk].personality);
 
-				if (useMonDef)
-					targetGender = GetGenderFromSpeciesAndPersonality(data->defSpecies, data->monDef->personality);
-				else
-					targetGender = GetGenderFromSpeciesAndPersonality(data->defSpecies, gBattleMons[bankDef].personality);
+		// 		if (useMonDef)
+		// 			targetGender = GetGenderFromSpeciesAndPersonality(data->defSpecies, data->monDef->personality);
+		// 		else
+		// 			targetGender = GetGenderFromSpeciesAndPersonality(data->defSpecies, gBattleMons[bankDef].personality);
 
-				if (attackerGender != 0xFF && targetGender != 0xFF)
-				{
-					if (attackerGender == targetGender)
-						power = (power * 125) / 100;
-					else
-						power = (power * 75) / 100;
-				}
-			}
-			break;
+		// 		if (attackerGender != 0xFF && targetGender != 0xFF)
+		// 		{
+		// 			if (attackerGender == targetGender)
+		// 				power = (power * 125) / 100;
+		// 			else
+		// 				power = (power * 75) / 100;
+		// 		}
+		// 	}
+		// 	break;
 
 		case ABILITY_RECKLESS:
 		//1.2x Boost
@@ -3901,9 +3968,14 @@ static u16 AdjustBasePower(struct DamageCalc* data, u16 power)
 			break;
 
 		case ABILITY_IRONFIST:
-		//1.2x Boost
+		//1.3x Boost
 			if (gSpecialMoveFlags[move].gPunchingMoves)
-				power = (power * 12) / 10;
+				power = (power * 13) / 10;
+			break;
+
+		case ABILITY_SHARPNESS:
+			if (gBattleMoves[move].flags & FLAG_SHARPNESS_AFFECTED)
+				power = (power * 13) / 10;
 			break;
 
 		case ABILITY_TOXICBOOST:
@@ -3920,8 +3992,7 @@ static u16 AdjustBasePower(struct DamageCalc* data, u16 power)
 
 		case ABILITY_SANDFORCE:
 		//1.3x Boost
-			if (gBattleWeather & WEATHER_SANDSTORM_ANY
-			&& (data->moveType == TYPE_ROCK || data->moveType == TYPE_GROUND || data->moveType == TYPE_STEEL))
+			if (gBattleWeather & WEATHER_SANDSTORM_ANY)
 				power = (power * 13) / 10;
 			break;
 

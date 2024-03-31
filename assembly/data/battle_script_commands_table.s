@@ -242,7 +242,6 @@ gBattleScriptingCommandsTable:
 .word atkE1_trygetintimidatetarget
 .word atkE2_switchoutabilities
 .word 0x802cd3d					@jumpiffainted
-.word atkE4_getsecretpowereffect	@secretpower
 .word atkE5_pickupitemcalculation
 .word 0x802cf31					@castformtransform
 .word atkE7_trycastformdatachange	@castformswitch

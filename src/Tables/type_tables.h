@@ -2,10 +2,10 @@
 /*
 @;format: attacking type, defending type, damage multiplier
 @;the multiplier is a (decimal) fixed-point number:
-@×2.0 TYPE_MUL_SUPER_EFFECTIVE
-@×1.0 TYPE_MUL_NORMAL
-@;×0.5 TYPE_MUL_NOT_EFFECTIVE
-@;×0.0 TYPE_MUL_NO_EFFECT
+@ï¿½2.0 TYPE_MUL_SUPER_EFFECTIVE
+@ï¿½1.0 TYPE_MUL_NORMAL
+@;ï¿½0.5 TYPE_MUL_NOT_EFFECTIVE
+@;ï¿½0.0 TYPE_MUL_NO_EFFECT
 */
 
 const u8 gTypeEffectiveness[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
@@ -132,7 +132,6 @@ const u8 gTypeEffectiveness[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 		[TYPE_GHOST] = TYPE_MUL_NOT_EFFECTIVE,
 		[TYPE_DARK] = TYPE_MUL_SUPER_EFFECTIVE,
 		[TYPE_STEEL] = TYPE_MUL_NOT_EFFECTIVE,
-		[TYPE_FAIRY] = TYPE_MUL_NOT_EFFECTIVE,
 	},
 	[TYPE_ROCK]=
 	{

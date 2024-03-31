@@ -38,6 +38,8 @@ ability_battle_scripts.s
 .global BattleScript_AbilityTransformed
 .global BattleScript_TransformedEnd2
 .global BattleScript_TransformedEnd3
+.global BattleScript_AmpdriveActive
+.global BattleScript_TurboblazeActivate
 
 .global BattleScript_RainDishActivates
 .global BattleScript_DrySkinDamage
@@ -726,7 +728,7 @@ BattleScript_CuteCharmActivates:
 	waitmessage DELAY_1SECOND
 	call BattleScript_AbilityPopUpRevert
 	jumpifsecondarystatus BANK_TARGET STATUS2_INLOVE CuteCharmActivatesReturn
-	jumpifability BANK_TARGET ABILITY_OBLIVIOUS CuteCharmActivatesReturn
+	jumpifability BANK_TARGET ABILITY_OWNTEMPO CuteCharmActivatesReturn
 	jumpifabilitypresenttargetfield ABILITY_AROMAVEIL CuteCharmActivatesReturn
 	jumpifhelditemeffect BANK_ATTACKER ITEM_EFFECT_DESTINY_KNOT CuteCharmDestinyKnot
 
@@ -1021,6 +1023,7 @@ BattleScript_Symbiosis:
 
 @;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+
 BattleScript_DefiantCompetitive:
 	statbuffchange STAT_TARGET | STAT_BS_PTR DefiantReturn
 	
@@ -1040,6 +1043,26 @@ BattleScript_DefiantCompetitiveCall:
 
 DefiantReturn:
 	return
+
+@;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+BattleScript_AmpdriveActive:
+	call BattleScript_AbilityPopUp
+	setword BATTLE_STRING_LOADER gText_AmpdriveActive
+	printstring 0x184
+	waitmessage DELAY_1SECOND
+	call BattleScript_AbilityPopUpRevert
+	end3
+
+@;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+BattleScript_TurboblazeActivate:
+	call BattleScript_AbilityPopUp
+	setword BATTLE_STRING_LOADER gText_TurboblazeActivate
+	printstring 0x184
+	waitmessage DELAY_1SECOND
+	call BattleScript_AbilityPopUpRevert
+	end3
 
 @;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 

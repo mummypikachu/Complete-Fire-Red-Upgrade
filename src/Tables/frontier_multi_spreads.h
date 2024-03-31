@@ -1014,7 +1014,7 @@ const struct BattleTowerSpread gMultiTowerSpread_RivalV1[] =
 		.hpEv = 196,
 		.atkEv = 252,
 		.spdEv = 60,
-		.ability = FRONTIER_ABILITY_1, //ABILITY_OBLIVIOUS
+		.ability = FRONTIER_ABILITY_1, //ABILITY_OWNTEMPO
 		.item = ITEM_LIFE_ORB,
 		.moves =
 		{

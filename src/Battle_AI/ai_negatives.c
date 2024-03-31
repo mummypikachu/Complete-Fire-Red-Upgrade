@@ -207,7 +207,7 @@ u8 AIScript_Negatives(const u8 bankAtk, const u8 bankDef, const u16 originalMove
 	}
 
 	//Target Ability Checks
-	if (NO_MOLD_BREAKERS(data->atkAbility, move))
+	if (IS_MOLD_BREAKER(data->atkAbility, move))
 	{
 		switch (data->defAbility) //Type-specific ability checks - Primordial weather handled separately
 		{
@@ -797,7 +797,7 @@ SKIP_CHECK_TARGET:
 
 		case EFFECT_EXPLOSION:
 		#ifdef OKAY_WITH_AI_SUICIDE
-			if (NO_MOLD_BREAKERS(data->atkAbility, move) && ABILITY_ON_FIELD(ABILITY_DAMP))
+			if (IS_MOLD_BREAKER(data->atkAbility, move) && ABILITY_ON_FIELD(ABILITY_DAMP))
 			{
 				DECREASE_VIABILITY(10);
 			}
@@ -1538,7 +1538,7 @@ SKIP_CHECK_TARGET:
 		case EFFECT_0HKO:
 			if ((IsDynamaxed(bankDef) && !HasRaidShields(bankDef)) //Only Dynamaxed foe that can be hit is one with shields up
 			|| AI_SpecialTypeCalc(move, bankAtk, bankDef) & (MOVE_RESULT_NO_EFFECT | MOVE_RESULT_MISSED)
-			|| (NO_MOLD_BREAKERS(data->atkAbility, move) && data->defAbility == ABILITY_STURDY)
+			|| (IS_MOLD_BREAKER(data->atkAbility, move) && data->defAbility == ABILITY_STURDY)
 			|| gBattleMons[bankAtk].level < gBattleMons[bankDef].level
 			|| (move == MOVE_SHEERCOLD && IsOfType(bankDef, TYPE_ICE)))
 				DECREASE_VIABILITY(10);
@@ -2433,7 +2433,7 @@ SKIP_CHECK_TARGET:
 
 		case EFFECT_TAUNT:
 			if (IsTaunted(bankDef)
-			|| data->defAbility == ABILITY_OBLIVIOUS
+			|| data->defAbility == ABILITY_OWNTEMPO
 			|| PARTNER_MOVE_EFFECT_IS_SAME)
 				DECREASE_VIABILITY(10);
 			break;
@@ -2547,7 +2547,7 @@ SKIP_CHECK_TARGET:
 
 		case EFFECT_KNOCK_OFF:
 			if (data->defItemEffect == ITEM_EFFECT_ASSAULT_VEST
-			|| (data->defItemEffect == ITEM_EFFECT_CHOICE_BAND && data->atkAbility != ABILITY_GORILLATACTICS && gBattleStruct->choicedMove[bankDef]))
+			|| (data->defItemEffect == ITEM_EFFECT_CHOICE_BAND && data->atkAbility != ABILITY_GORILLATACTICS && gBattleStruct->choicedMove[bankDef]) || data->defItemEffect == ITEM_EFFECT_STRIKER_VEST)
 			{
 				if (GetStrongestMove(bankDef, bankAtk) == MOVE_NONE
 				|| AI_SpecialTypeCalc(GetStrongestMove(bankDef, bankAtk), bankDef, bankAtk) & (MOVE_RESULT_NO_EFFECT | MOVE_RESULT_MISSED))

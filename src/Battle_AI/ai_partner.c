@@ -463,28 +463,28 @@ u8 AIScript_Partner(const u8 bankAtk, const u8 bankAtkPartner, const u16 origina
 					&& !MoveKnocksOutXHits(move, bankAtk, bankAtkPartner, 1))
 						IncreaseHelpingHandViability(&viability, class);
 					break;
-				case ABILITY_COTTONDOWN:
-					if (moveSplit != SPLIT_STATUS
-					&& !MoveKnocksOutXHits(move, bankAtk, bankAtkPartner, 1))
-					{
-						u8 foe1 = FOE(bankAtk);
-						u8 foe2 = PARTNER(foe1);
-						u8 foe1Ability = ABILITY(foe1);
-						u8 foe2Ability = ABILITY(foe2);
+				// case ABILITY_COTTONDOWN:
+				// 	if (moveSplit != SPLIT_STATUS
+				// 	&& !MoveKnocksOutXHits(move, bankAtk, bankAtkPartner, 1))
+				// 	{
+				// 		u8 foe1 = FOE(bankAtk);
+				// 		u8 foe2 = PARTNER(foe1);
+				// 		u8 foe1Ability = ABILITY(foe1);
+				// 		u8 foe2Ability = ABILITY(foe2);
 
-						if (BATTLER_ALIVE(foe1)
-						&& (foe1Ability == ABILITY_CONTRARY || foe1Ability == ABILITY_MIRRORARMOR))
-							break; //Don't try to benefit enemy
+				// 		if (BATTLER_ALIVE(foe1)
+				// 		&& (foe1Ability == ABILITY_CONTRARY || foe1Ability == ABILITY_MIRRORARMOR))
+				// 			break; //Don't try to benefit enemy
 
-						if (BATTLER_ALIVE(foe2)
-						&& (foe2Ability == ABILITY_CONTRARY || foe2Ability == ABILITY_MIRRORARMOR))
-							break; //Don't try to benefit enemy
+				// 		if (BATTLER_ALIVE(foe2)
+				// 		&& (foe2Ability == ABILITY_CONTRARY || foe2Ability == ABILITY_MIRRORARMOR))
+				// 			break; //Don't try to benefit enemy
 
-						if (CanStatBeLowered(STAT_STAGE_SPEED, foe1, bankAtk, foe1Ability)
-						|| CanStatBeLowered(STAT_STAGE_SPEED, foe2, bankAtk, foe2Ability))
-							IncreaseHelpingHandViability(&viability, class); //Try lower opposing enemies speed		
-					}
-					break;
+				// 		if (CanStatBeLowered(STAT_STAGE_SPEED, foe1, bankAtk, foe1Ability)
+				// 		|| CanStatBeLowered(STAT_STAGE_SPEED, foe2, bankAtk, foe2Ability))
+				// 			IncreaseHelpingHandViability(&viability, class); //Try lower opposing enemies speed		
+				// 	}
+				// 	break;
 			}
 			break;
 

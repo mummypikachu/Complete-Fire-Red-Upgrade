@@ -462,7 +462,7 @@ u8 PredictFightingStyle(const u16* const moves, const u8 ability, const u8 itemE
 						break;
 
 					default:
-						if (IsChoiceItemEffectOrAbility(itemEffect, ability) || itemEffect == ITEM_EFFECT_ASSAULT_VEST)
+						if (IsChoiceItemEffectOrAbility(itemEffect, ability) || itemEffect == ITEM_EFFECT_ASSAULT_VEST || itemEffect == ITEM_EFFECT_STRIKER_VEST)
 							class = FIGHT_CLASS_SWEEPER_KILL;
 						else if (moveEffect == EFFECT_RESTORE_HP //Not placed above because checked in this order
 							  || moveEffect == EFFECT_MORNING_SUN

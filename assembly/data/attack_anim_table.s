@@ -1909,12 +1909,41 @@ ANIM_SKILLSWAP:
 	waitanimation
 	endanimation
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .pool
 ANIM_SECRETPOWER:
-	launchtask AnimTask_GetSecretPowerAnimation 0x5 0x0
+	loadparticle ANIM_TAG_ORBS
+	loadparticle ANIM_TAG_BLUE_STAR
+	loadparticle ANIM_TAG_HANDS_AND_FEET
+	loadparticle ANIM_TAG_VERTICAL_HEX
+	pokespritetoBG bank_target
+	setblends 0x80c
+	launchtask AnimTask_pal_fade 0xa 0x5 PAL_BG 0x1 0x0 0xA 0x171D
+	launchtemplate DRAIN_FIST TEMPLATE_TARGET | 1, 0x5 bank_target 0x0 0x0 16 0x2C
+	pause 2
+	playsound2 0x84 SOUND_PAN_TARGET
+	pause 6
+	playsound2 0xAD SOUND_PAN_TARGET
+	launchtask AnimTask_move_bank 0x5 0x5 0x1 0x0 0x5 0x1A 0x1
+	call ABSORB_ANIM
 	waitanimation
+	launchtask AnimTask_pal_fade 0xa 0x5 PAL_BG 0x1 0xa 0x0 0x171d
+	launchtask AnimTask_ScaleMonAndRestore 0x5 0x5 0xfff9 0xfff9 0xb bank_attacker 0x0
+	launchtemplate Template_HiddenPowerOrbScatter TEMPLATE_TARGET | 2, 0x1 0x0
+	launchtemplate Template_HiddenPowerOrbScatter TEMPLATE_TARGET | 2, 0x1 0x20
+	launchtemplate Template_HiddenPowerOrbScatter TEMPLATE_TARGET | 2, 0x1 0x40
+	launchtemplate Template_HiddenPowerOrbScatter TEMPLATE_TARGET | 2, 0x1 0x60
+	launchtemplate Template_HiddenPowerOrbScatter TEMPLATE_TARGET | 2, 0x1 0x80
+	launchtemplate Template_HiddenPowerOrbScatter TEMPLATE_TARGET | 2, 0x1 0xa0
+	launchtemplate Template_HiddenPowerOrbScatter TEMPLATE_TARGET | 2, 0x1 SOUND_PAN_ATTACKER
+	launchtemplate Template_HiddenPowerOrbScatter TEMPLATE_TARGET | 2, 0x1 0xe0
+	launchtask AnimTask_pal_fade 0xa 0x5 PAL_BG 0x1 0x8 0x0 0x0
+	waitanimation
+	resetblends
+	pokespritefromBG bank_target
 	endanimation
 
+.align 2
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .pool
 @Credits to Skeli

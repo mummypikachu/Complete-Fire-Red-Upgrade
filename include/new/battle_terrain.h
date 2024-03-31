@@ -32,8 +32,6 @@ struct BattleBackground
 struct TerrainTableStruct
 {
 	u8 camouflageType;
-	u8 secretPowerEffect;
-	u16 secretPowerAnim;
 	u16 naturePowerMove;
 	u16 burmyForm;
 };

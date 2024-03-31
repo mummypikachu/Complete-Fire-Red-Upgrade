@@ -394,12 +394,7 @@ u8 TurnBasedEffects(void)
 
 					if (!effect)
 					{
-						if (gBattleWeather & WEATHER_HAIL_ANY)
-						{
-							if (TakesDamageFromHail(gActiveBattler))
-								effect++;
-						}
-						else if (gBattleWeather & WEATHER_SANDSTORM_ANY)
+						if (gBattleWeather & WEATHER_SANDSTORM_ANY)
 						{
 							if (TakesDamageFromSandstorm(gActiveBattler))
 								effect++;
@@ -1987,7 +1982,7 @@ u32 GetBadThoughtsDamage(u8 bank)
 	&& !IsOfType(bank, TYPE_GHOST)
 	&& !IsOfType(bank, TYPE_PSYCHIC)
 	&& ability != ABILITY_MAGICGUARD
-	&& ability != ABILITY_OBLIVIOUS
+	&& ability != ABILITY_OWNTEMPO
 	&& ability != ABILITY_UNAWARE)
 	{
 		if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)

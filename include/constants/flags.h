@@ -1314,6 +1314,7 @@
 #define FLAG_0x4FF               0x4FF
 */
 
+#define FLAG_RUNNING_ENABLED 0x82F
 #define FLAG_TRAINER_FLAG_START  0x500
 
 // Vanilla: SYS_FLAGS = 0x800

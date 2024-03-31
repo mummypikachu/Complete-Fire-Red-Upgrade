@@ -1307,6 +1307,9 @@ The user heals its\nown statuses and\nrestores HP. It also\nraises evasiveness.
 #org @DESC_TAKE_HEART
 The user heals its\nown statuses and\nraises its Sp. Atk\nand Sp. Def.
 
+#org @DESC_GLACIERSTREAM
+Pieces of ice are laid around the\nfoe's party to hurt foes switching\lin.
+
 #org @DESC_MAX_GUARD
 Enables the user to\nevade all attacks.\nIt may fail if used\nin succession.
 
